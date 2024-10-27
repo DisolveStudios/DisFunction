@@ -2937,13 +2937,13 @@ MonoBehaviour:
   currentRotation: {x: 0, y: 0, z: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   targetMovement: {x: 0, y: 0, z: 0}
-  recoilX: -2.9
+  recoilX: -1
   recoilY: 2.2
   recoilZ: 4.5
   returnspeed: 9
   snapiness: 15
   fireRate: 0.1
-  kickBackPower: -0.1
+  kickBackPower: 0.05
   camChange: {x: 0, y: 0, z: 0}
   cooldown: 0
   sensitivity: 100
