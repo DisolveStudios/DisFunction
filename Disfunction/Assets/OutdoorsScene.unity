@@ -1199,6 +1199,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 499280739}
+--- !u!1 &540574336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540574338}
+  - component: {fileID: 540574337}
+  m_Layer: 0
+  m_Name: Application Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &540574337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540574336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebc8d23e7e4a4872847b607016595df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRateCap: 100
+--- !u!4 &540574338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540574336}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.8327055, y: 1.8643334, z: -10.591851}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &632043629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2937,16 +2982,17 @@ MonoBehaviour:
   currentRotation: {x: 0, y: 0, z: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   targetMovement: {x: 0, y: 0, z: 0}
-  recoilX: -1
-  recoilY: 2.2
-  recoilZ: 4.5
+  recoilX: -50
+  recoilY: 60
+  recoilZ: 60
   returnspeed: 9
   snapiness: 15
-  fireRate: 0.1
+  fireRate: 0.04
   kickBackPower: 0.05
   camChange: {x: 0, y: 0, z: 0}
   cooldown: 0
   sensitivity: 100
+  bulletsInMag: 40
   camSen: {x: 0, y: 0, z: 0}
   camRecoil: {x: 0, y: 0, z: 0}
   gunMouth: {fileID: 1177523174}
@@ -2959,6 +3005,7 @@ MonoBehaviour:
   isAiming: 0
   canShoot: 1
   isLock: 0
+  coolDownTime: 0.05
 --- !u!1 &1827764740
 GameObject:
   m_ObjectHideFlags: 0
@@ -3382,3 +3429,4 @@ SceneRoots:
   - {fileID: 75374901}
   - {fileID: 1363719847}
   - {fileID: 2117835888}
+  - {fileID: 540574338}

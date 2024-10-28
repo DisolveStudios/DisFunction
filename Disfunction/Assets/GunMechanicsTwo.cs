@@ -30,6 +30,9 @@ public class GunMechanicsTwo : MonoBehaviour
 
     public float sensitivity = 1;
 
+    public int bulletsInMag = 40;
+    private int initialBulletsInMag;
+
     float mouseY;
 
     Vector3 camRot;
@@ -67,18 +70,30 @@ public class GunMechanicsTwo : MonoBehaviour
         currentTargetAim = defaultAimPosition;
 
         aimPosition = new Vector3(-0.167f,-0.105f, 0.100f);
+
+        initialBulletsInMag = bulletsInMag;
     }
 
     public bool isLock = false;
+
+    public float coolDownTime = 0.1f;
+    private float latestTime;
 
     // Update is called once per frame
     void Update()
     {
         DetermineAim();
         mouseY = Input.GetAxis("Mouse Y");
-        if(Input.GetMouseButton(0) && canShoot) {
-            canShoot = false;
-            StartCoroutine(Shoot());
+        if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
+           if(Time.time - latestTime > coolDownTime) {
+             latestTime = Time.time;
+             canShoot = false;
+             StartCoroutine(Shoot());
+           }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            bulletsInMag = initialBulletsInMag;
         }
 
         // just for fixing crosshair
@@ -99,7 +114,7 @@ public class GunMechanicsTwo : MonoBehaviour
              PlayerRotation.mouseSensitivity = 1;
         }
 
-        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.deltaTime * returnspeed);
+        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
 
         transform.localRotation = Quaternion.Euler(targetRotation);
@@ -114,6 +129,7 @@ public class GunMechanicsTwo : MonoBehaviour
     }
 
     IEnumerator Shoot() {
+       Debug.Log("Hit");
        RaycastHit hit;
        if(Physics.Raycast(gunMouth.transform.position, gunMouth.transform.TransformDirection(Vector3.forward) , out hit, Mathf.Infinity)) {
             Debug.DrawRay(gunMouth.transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
@@ -121,17 +137,18 @@ public class GunMechanicsTwo : MonoBehaviour
             obj.transform.SetParent(hit.transform, true);
        }
 
-        float yRecoil = Random.Range(-recoilY, recoilY);
-        float zRecoil = Random.Range(-recoilZ, recoilZ);
+        float yRecoil = Random.Range(-recoilY, recoilY) ;
+        float zRecoil = Random.Range(-recoilZ, recoilZ) ;
 
-        targetRotation += new Vector3(recoilX, yRecoil, zRecoil) * Time.deltaTime * 20.0f;
+        targetRotation += new Vector3(recoilX , yRecoil, zRecoil) * Time.fixedDeltaTime;
         // camRecoil += new Vector3(recoilX, yRecoil, zRecoil);
 
         Vector3 kickBack = new Vector3(0f, 0, -0.2f);
-        targetMovement += kickBack * Time.deltaTime * 50.0f;
+        targetMovement += kickBack  * Time.fixedDeltaTime * 50.0f;
         targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
+        bulletsInMag--;
 
-        yield return new WaitForSeconds(fireRate * Time.deltaTime * 10.0f);
+        yield return new WaitForSeconds(fireRate * Time.fixedDeltaTime);
         canShoot = true;
     }
 
