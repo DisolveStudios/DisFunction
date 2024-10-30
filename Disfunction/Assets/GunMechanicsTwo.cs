@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class GunMechanicsTwo : MonoBehaviour
     public float recoilZ;
 
     public float returnspeed;
+    private float initialReturnspeed;
     public float snapiness;
 
     public float fireRate;
@@ -72,23 +74,28 @@ public class GunMechanicsTwo : MonoBehaviour
         aimPosition = new Vector3(-0.167f,-0.105f, 0.100f);
 
         initialBulletsInMag = bulletsInMag;
+        initialCoolDownTime = coolDownTime;
+        initialReturnspeed = returnspeed;
     }
 
     public bool isLock = false;
 
     public float coolDownTime = 0.1f;
+    private float initialCoolDownTime;
     private float latestTime;
 
     // Update is called once per frame
     void Update()
     {
         DetermineAim();
+        controlGunMechanicsByFrameRate();
+        getFramRatePerSecond();
         mouseY = Input.GetAxis("Mouse Y");
         if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
            if(Time.time - latestTime > coolDownTime) {
              latestTime = Time.time;
              canShoot = false;
-             StartCoroutine(Shoot());
+             Shoot();
            }
         }
 
@@ -128,8 +135,7 @@ public class GunMechanicsTwo : MonoBehaviour
         transform.parent.localRotation = Quaternion.Euler(camRecoil);
     }
 
-    IEnumerator Shoot() {
-       Debug.Log("Hit");
+    void Shoot() {
        RaycastHit hit;
        if(Physics.Raycast(gunMouth.transform.position, gunMouth.transform.TransformDirection(Vector3.forward) , out hit, Mathf.Infinity)) {
             Debug.DrawRay(gunMouth.transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
@@ -137,8 +143,8 @@ public class GunMechanicsTwo : MonoBehaviour
             obj.transform.SetParent(hit.transform, true);
        }
 
-        float yRecoil = Random.Range(-recoilY, recoilY) ;
-        float zRecoil = Random.Range(-recoilZ, recoilZ) ;
+        float yRecoil = UnityEngine.Random.Range(-recoilY, recoilY) ;
+        float zRecoil = UnityEngine.Random.Range(-recoilZ, recoilZ) ;
 
         targetRotation += new Vector3(recoilX , yRecoil, zRecoil) * Time.fixedDeltaTime;
         // camRecoil += new Vector3(recoilX, yRecoil, zRecoil);
@@ -148,7 +154,7 @@ public class GunMechanicsTwo : MonoBehaviour
         targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
 
-        yield return new WaitForSeconds(fireRate * Time.fixedDeltaTime);
+        // yield return new WaitForSeconds(fireRate * Time.fixedDeltaTime);
         canShoot = true;
     }
 
@@ -188,4 +194,39 @@ public class GunMechanicsTwo : MonoBehaviour
             // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-2.5752f, -8.1848f);
         }
     }
+
+    private float currentFPSOffset;
+    private float baseFPS = 30;
+
+    private float pollingTime = 0.2f;
+    private float time;
+    private int frameCount;
+
+    private int frameRate;
+
+    private void controlGunMechanicsByFrameRate() {
+       
+        currentFPSOffset = frameRate - baseFPS;
+        currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
+        Debug.Log("frameRate: " + frameRate);
+        // Debug.Log(currentFPSOffset);
+        float requiredFireRate = currentFPSOffset * 0.000070f;
+        float requiredReturnspeed = currentFPSOffset * 0.1f;
+
+        coolDownTime = initialCoolDownTime + requiredFireRate;
+        returnspeed = initialReturnspeed - requiredReturnspeed;
+        returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
+    }
+
+    private void getFramRatePerSecond() {
+        time += Time.deltaTime;
+        frameCount++;
+        // Debug.Log("Yes");
+        if(time >= pollingTime) {
+            // Debug.Log("And Yes");
+            frameRate = Mathf.RoundToInt(frameCount / time);
+            time -= pollingTime;
+            frameCount = 0;
+        }
+     }
 }
