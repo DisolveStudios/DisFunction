@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunMechanics : MonoBehaviour
+public class GunMechanicsTwo : MonoBehaviour
 {
     [Header("Gun Factors")]
     public float fireRate = 0.1f;

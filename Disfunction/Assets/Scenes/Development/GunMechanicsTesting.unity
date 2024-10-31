@@ -1228,7 +1228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc8d23e7e4a4872847b607016595df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameRateCap: 100
+  frameRateCap: 60
+  capFrameRate: 0
 --- !u!4 &540574338
 Transform:
   m_ObjectHideFlags: 0
@@ -2977,35 +2978,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b356e27f4be4203a039d2f58175e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crosshair: {fileID: 71782100}
   targetRotation: {x: 0, y: 0, z: 0}
   currentRotation: {x: 0, y: 0, z: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   targetMovement: {x: 0, y: 0, z: 0}
-  recoilX: -50
-  recoilY: 60
-  recoilZ: 60
-  returnspeed: 9
-  snapiness: 15
-  fireRate: 0.04
-  kickBackPower: 0.05
   camChange: {x: 0, y: 0, z: 0}
-  cooldown: 0
-  sensitivity: 100
-  bulletsInMag: 40
-  camSen: {x: 0, y: 0, z: 0}
-  camRecoil: {x: 0, y: 0, z: 0}
-  gunMouth: {fileID: 1177523174}
-  debugBall: {fileID: 8286456652916505303, guid: 579da448c74cc4a7082e91deb2baed7b,
-    type: 3}
-  isSingleClick: 1
   defaultAimPosition: {x: 0, y: 0, z: 0}
   aimPosition: {x: 0, y: 0, z: 0}
   currentTargetAim: {x: 0, y: 0, z: 0}
+  camSen: {x: 0, y: 0, z: 0}
+  camRecoil: {x: 0, y: 0, z: 0}
+  recoilX: -25
+  recoilY: 25
+  recoilZ: 25
+  returnspeed: 9
+  snapiness: 15
+  kickBackPower: 0.05
+  fireRate: 0.05
+  sensitivity: 1
+  bulletsInMag: 40
+  isSingleClick: 1
   isAiming: 0
   canShoot: 1
   isLock: 0
-  coolDownTime: 0.05
+  minimizeFPSError: 1
+  gunMouth: {fileID: 1177523174}
+  debugBall: {fileID: 8286456652916505303, guid: 579da448c74cc4a7082e91deb2baed7b,
+    type: 3}
 --- !u!1 &1827764740
 GameObject:
   m_ObjectHideFlags: 0
