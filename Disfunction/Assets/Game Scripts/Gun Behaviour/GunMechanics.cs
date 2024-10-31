@@ -4,62 +4,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GunMechanicsTwo : MonoBehaviour
+public class GunMechanics : MonoBehaviour
 {
-    public Image crosshair;
+     [Header("Gun Vector Position")]
     public Vector3 targetRotation;
     public Vector3 currentRotation;
-    
     public Vector3 initialPosition;
     public Vector3 targetMovement;
-    public float recoilX;
-    public float recoilY;
-    public float recoilZ;
-
-    public float returnspeed;
-    private float initialReturnspeed;
-    public float snapiness;
-
-    public float fireRate;
-
-    public float kickBackPower;
-
     public Vector3 camChange;
-
-    public bool cooldown;
-
-    float yRot;
-
-    public float sensitivity = 1;
-
-    public int bulletsInMag = 40;
-    private int initialBulletsInMag;
-
-    float mouseY;
-
-    Vector3 camRot;
-    Vector3 camCurr;
-
+    public Vector3 defaultAimPosition;
+    public Vector3 aimPosition;
+    public Vector3 currentTargetAim;
     public Vector3 camSen;
     public Vector3 camRecoil;
 
-    Vector3 prevPos;
+    [Header("Gun Attributes")]
+    public float recoilX;
+    public float recoilY;
+    public float recoilZ;
+    public float returnspeed;
+    private float initialReturnspeed;
+    public float snapiness;
+    public float kickBackPower;
+    public float fireRate = 0.1f;
+    public float sensitivity = 1;
 
+    public int bulletsInMag = 40;
+
+    [Header("Gun Conditions")]
+    public bool isSingleClick;
+    public bool isAiming;
+    public bool canShoot;
+    public bool isLock = false;
+
+    [Header("Gun Objects")]
     public GameObject gunMouth;
-
     public GameObject debugBall;
 
-    public bool isSingleClick;
+    private Vector3 camRot;
+    private Vector3 camCurr;
+    private Vector3 prevPos;
 
-    public Vector3 defaultAimPosition;
+    private float initialCoolDownTime;
+    private float latestTime;
+    private float mouseY;
+    private float currentFPSOffset;
+    private float baseFPS = 30;
+    private float pollingTime = 0.2f;
+    private float time;
 
-    public Vector3 aimPosition;
-
-    public Vector3 currentTargetAim;
-
-    public bool isAiming;
-
-    public bool canShoot;
+    private int initialBulletsInMag;
+    private int frameCount;
+    private int frameRate;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -67,43 +63,36 @@ public class GunMechanicsTwo : MonoBehaviour
 
         initialPosition = transform.localPosition;
         targetMovement = initialPosition;
-        cooldown = false;
         defaultAimPosition = transform.localPosition;
         currentTargetAim = defaultAimPosition;
 
         aimPosition = new Vector3(-0.167f,-0.105f, 0.100f);
 
         initialBulletsInMag = bulletsInMag;
-        initialCoolDownTime = coolDownTime;
+        initialCoolDownTime = fireRate;
         initialReturnspeed = returnspeed;
     }
 
-    public bool isLock = false;
-
-    public float coolDownTime = 0.1f;
-    private float initialCoolDownTime;
-    private float latestTime;
-
-    // Update is called once per frame
     void Update()
     {
         DetermineAim();
         controlGunMechanicsByFrameRate();
         getFramRatePerSecond();
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            bulletsInMag = initialBulletsInMag;
+        }
+
         mouseY = Input.GetAxis("Mouse Y");
+
         if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
-           if(Time.time - latestTime > coolDownTime) {
+           if(Time.time - latestTime > fireRate) {
              latestTime = Time.time;
              canShoot = false;
              Shoot();
            }
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            bulletsInMag = initialBulletsInMag;
-        }
-
-        // just for fixing crosshair
         if(Input.GetKeyDown(KeyCode.F)) {
             if (isLock) {
                 isLock = false;
@@ -123,7 +112,6 @@ public class GunMechanicsTwo : MonoBehaviour
 
         targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
-
         transform.localRotation = Quaternion.Euler(targetRotation);
         
         targetMovement = Vector3.Lerp(targetMovement, initialPosition, Time.deltaTime * 7.6f);
@@ -145,16 +133,12 @@ public class GunMechanicsTwo : MonoBehaviour
 
         float yRecoil = UnityEngine.Random.Range(-recoilY, recoilY) ;
         float zRecoil = UnityEngine.Random.Range(-recoilZ, recoilZ) ;
-
         targetRotation += new Vector3(recoilX , yRecoil, zRecoil) * Time.fixedDeltaTime;
-        // camRecoil += new Vector3(recoilX, yRecoil, zRecoil);
 
         Vector3 kickBack = new Vector3(0f, 0, -0.2f);
         targetMovement += kickBack  * Time.fixedDeltaTime * 50.0f;
         targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
-
-        // yield return new WaitForSeconds(fireRate * Time.fixedDeltaTime);
         canShoot = true;
     }
 
@@ -195,15 +179,6 @@ public class GunMechanicsTwo : MonoBehaviour
         }
     }
 
-    private float currentFPSOffset;
-    private float baseFPS = 30;
-
-    private float pollingTime = 0.2f;
-    private float time;
-    private int frameCount;
-
-    private int frameRate;
-
     private void controlGunMechanicsByFrameRate() {
        
         currentFPSOffset = frameRate - baseFPS;
@@ -213,7 +188,7 @@ public class GunMechanicsTwo : MonoBehaviour
         float requiredFireRate = currentFPSOffset * 0.000070f;
         float requiredReturnspeed = currentFPSOffset * 0.1f;
 
-        coolDownTime = initialCoolDownTime + requiredFireRate;
+        fireRate = initialCoolDownTime + requiredFireRate;
         returnspeed = initialReturnspeed - requiredReturnspeed;
         returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
     }
