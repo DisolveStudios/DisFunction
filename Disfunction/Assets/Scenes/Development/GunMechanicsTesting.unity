@@ -1223,12 +1223,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540574336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ebc8d23e7e4a4872847b607016595df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameRateCap: 30
+  frameRateCap: 60
+  capFrameRate: 0
 --- !u!4 &540574338
 Transform:
   m_ObjectHideFlags: 0
@@ -2994,12 +2995,13 @@ MonoBehaviour:
   snapiness: 15
   kickBackPower: 0.05
   fireRate: 0.05
-  sensitivity: 100
+  sensitivity: 1
   bulletsInMag: 40
   isSingleClick: 1
   isAiming: 0
   canShoot: 1
   isLock: 0
+  minimizeFPSError: 1
   gunMouth: {fileID: 1177523174}
   debugBall: {fileID: 8286456652916505303, guid: 579da448c74cc4a7082e91deb2baed7b,
     type: 3}

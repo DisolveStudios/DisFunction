@@ -4,11 +4,32 @@ using UnityEngine;
 
 public class ApplicationFrameRate : MonoBehaviour
 {
+    [Header("Frame Rate Cap")]
     public int frameRateCap;
-    // Start is called before the first frame update
+
+    public bool capFrameRate;
+
+    private static float time;
+
+    private static int frameCount;
+    private static int frameRate;
+
+    public static int GetCurrentFrameRate(float pollingTime) {
+        time += Time.deltaTime;
+        frameCount++;
+        if(time >= pollingTime) {
+            frameRate = Mathf.RoundToInt(frameCount / time);
+            time -= pollingTime;
+            frameCount = 0;
+        }
+        return frameCount;
+    }
+
     void Update()
     {
-        lockFrameRate(frameRateCap);
+        if (capFrameRate) {
+            lockFrameRate(frameRateCap);
+        }
     }
 
     private void lockFrameRate(int fps) {

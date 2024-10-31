@@ -36,6 +36,7 @@ public class GunMechanics : MonoBehaviour
     public bool isAiming;
     public bool canShoot;
     public bool isLock = false;
+    public bool minimizeFPSError;
 
     [Header("Gun Objects")]
     public GameObject gunMouth;
@@ -50,8 +51,6 @@ public class GunMechanics : MonoBehaviour
     private float mouseY;
     private float currentFPSOffset;
     private float baseFPS = 30;
-    private float pollingTime = 0.2f;
-    private float time;
 
     private int initialBulletsInMag;
     private int frameCount;
@@ -75,15 +74,16 @@ public class GunMechanics : MonoBehaviour
 
     void Update()
     {
-        DetermineAim();
-        controlGunMechanicsByFrameRate();
-        getFramRatePerSecond();
+        mouseY = Input.GetAxis("Mouse Y");
 
         if (Input.GetKeyDown(KeyCode.R)) {
             bulletsInMag = initialBulletsInMag;
         }
 
-        mouseY = Input.GetAxis("Mouse Y");
+        if(minimizeFPSError) {
+            getFrameRates();
+            controlGunMechanicsByFrameRate();
+        }
 
         if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
            if(Time.time - latestTime > fireRate) {
@@ -94,21 +94,25 @@ public class GunMechanics : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.F)) {
-            if (isLock) {
-                isLock = false;
-            }
-            else {
+            if (!isLock) {
+                sensitivity = 0;
+                PlayerRotation.mouseSensitivity = 0;
                 isLock = true;
             }
+            else {
+                sensitivity = 1;
+                PlayerRotation.mouseSensitivity = 1;
+                isLock = false;
+            }
         }
-
-        if (isLock) {
-            sensitivity = 0;
-            PlayerRotation.mouseSensitivity = 0;
-        }else{
-            sensitivity = 1;
-             PlayerRotation.mouseSensitivity = 1;
-        }
+        // if (isLock) {
+        //     sensitivity = 0;
+        //     PlayerRotation.mouseSensitivity = 0;
+        // }else{
+        //     sensitivity = 1;
+        //      PlayerRotation.mouseSensitivity = 1;
+        // }
+        DetermineAim();
 
         targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
@@ -184,7 +188,6 @@ public class GunMechanics : MonoBehaviour
         currentFPSOffset = frameRate - baseFPS;
         currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
         Debug.Log("frameRate: " + frameRate);
-        // Debug.Log(currentFPSOffset);
         float requiredFireRate = currentFPSOffset * 0.000070f;
         float requiredReturnspeed = currentFPSOffset * 0.1f;
 
@@ -193,15 +196,7 @@ public class GunMechanics : MonoBehaviour
         returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
     }
 
-    private void getFramRatePerSecond() {
-        time += Time.deltaTime;
-        frameCount++;
-        // Debug.Log("Yes");
-        if(time >= pollingTime) {
-            // Debug.Log("And Yes");
-            frameRate = Mathf.RoundToInt(frameCount / time);
-            time -= pollingTime;
-            frameCount = 0;
-        }
-     }
+    private void getFrameRates() {
+        frameRate = ApplicationFrameRate.GetCurrentFrameRate(0.1f);
+    }
 }
