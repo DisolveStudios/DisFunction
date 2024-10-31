@@ -1228,7 +1228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc8d23e7e4a4872847b607016595df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameRateCap: 60
+  frameRateCap: 30
   capFrameRate: 0
 --- !u!4 &540574338
 Transform:
