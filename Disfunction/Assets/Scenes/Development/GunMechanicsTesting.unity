@@ -894,9 +894,10 @@ GameObject:
   m_Component:
   - component: {fileID: 540574338}
   - component: {fileID: 540574337}
+  - component: {fileID: 540574339}
   m_Layer: 0
   m_Name: Application Manager
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
