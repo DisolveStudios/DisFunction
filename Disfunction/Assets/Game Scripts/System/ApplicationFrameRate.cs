@@ -22,7 +22,7 @@ public class ApplicationFrameRate : MonoBehaviour
             time -= pollingTime;
             frameCount = 0;
         }
-        return frameCount;
+        return frameRate;
     }
 
     void Update()

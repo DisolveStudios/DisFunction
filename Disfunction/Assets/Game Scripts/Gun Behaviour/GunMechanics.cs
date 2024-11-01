@@ -65,8 +65,6 @@ public class GunMechanics : MonoBehaviour
         defaultAimPosition = transform.localPosition;
         currentTargetAim = defaultAimPosition;
 
-        aimPosition = new Vector3(-0.167f,-0.105f, 0.100f);
-
         initialBulletsInMag = bulletsInMag;
         initialCoolDownTime = fireRate;
         initialReturnspeed = returnspeed;
@@ -189,7 +187,7 @@ public class GunMechanics : MonoBehaviour
         currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
         Debug.Log("frameRate: " + frameRate);
         float requiredFireRate = currentFPSOffset * 0.000070f;
-        float requiredReturnspeed = currentFPSOffset * 0.1f;
+        float requiredReturnspeed = currentFPSOffset * 0.08f;
 
         fireRate = initialCoolDownTime + requiredFireRate;
         returnspeed = initialReturnspeed - requiredReturnspeed;
