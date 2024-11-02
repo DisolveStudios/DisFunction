@@ -274,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076807572012182494}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.473, y: -0.262, z: 1}
   m_LocalScale: {x: 1.3483325, y: 1.0707, z: 1.0707}
   m_ConstrainProportionsScale: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
   kickBackPower: 5
   fireRate: 0.16
   sensitivity: 1
-  bulletsInMag: 35
+  bulletsInMag: 10
   isSingleClick: 1
   isAiming: 0
   canShoot: 1
