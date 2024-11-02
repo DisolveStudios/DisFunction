@@ -18,6 +18,9 @@ public class GunMechanics : MonoBehaviour
     public Vector3 camSen;
     public Vector3 camRecoil;
 
+    [Header("Prefabs")]
+    public GameObject gunModelPrefab;
+
     [Header("Gun Attributes")]
     public float recoilX;
     public float recoilY;
@@ -56,6 +59,8 @@ public class GunMechanics : MonoBehaviour
     private int frameCount;
     private int frameRate;
 
+    private GunViewAnimationTrigger gunViewAnimation;
+
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -68,6 +73,8 @@ public class GunMechanics : MonoBehaviour
         initialBulletsInMag = bulletsInMag;
         initialCoolDownTime = fireRate;
         initialReturnspeed = returnspeed;
+
+        gunViewAnimation = gunModelPrefab.GetComponent<GunViewAnimationTrigger>();
     }
 
     void Update()
@@ -85,6 +92,9 @@ public class GunMechanics : MonoBehaviour
 
         if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
            if(Time.time - latestTime > fireRate) {
+             if(gunViewAnimation) {
+                gunViewAnimation.disableViewAnimation();
+             } 
              latestTime = Time.time;
              canShoot = false;
              Shoot();
@@ -114,7 +124,7 @@ public class GunMechanics : MonoBehaviour
 
         targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
-        transform.localRotation = Quaternion.Euler(targetRotation);
+        transform.localRotation = Quaternion.Euler(currentRotation);
         
         targetMovement = Vector3.Lerp(targetMovement, initialPosition, Time.deltaTime * 7.6f);
         transform.localPosition = targetMovement;
@@ -188,7 +198,6 @@ public class GunMechanics : MonoBehaviour
     }
 
     private void controlGunMechanicsByFrameRate() {
-       
         currentFPSOffset = frameRate - baseFPS;
         currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
         Debug.Log("frameRate: " + frameRate);

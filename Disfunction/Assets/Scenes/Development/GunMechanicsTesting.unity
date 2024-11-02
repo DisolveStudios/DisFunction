@@ -598,6 +598,12 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!1 &230091117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2210679930024097465, guid: 665dcfee9f84f42bfbb12f201415977d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8209212894452456676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &421608967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,6 +1037,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &963012273
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230091117}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ba721085821e4184bed7b7592eee7ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &963012274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230091117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de8b1db3e2b44fb9819333a9d9a3f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 963012273}
 --- !u!1 &1063576658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,15 +2207,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun(Model) Pistol
       objectReference: {fileID: 0}
-    - target: {fileID: 5076807572012182494, guid: 665dcfee9f84f42bfbb12f201415977d,
+    - target: {fileID: 8234803570336211450, guid: 665dcfee9f84f42bfbb12f201415977d,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: snapiness
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234803570336211450, guid: 665dcfee9f84f42bfbb12f201415977d,
+        type: 3}
+      propertyPath: returnspeed
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234803570336211450, guid: 665dcfee9f84f42bfbb12f201415977d,
+        type: 3}
+      propertyPath: gunModelPrefab
+      value: 
+      objectReference: {fileID: 230091117}
+    - target: {fileID: 8234803570336211450, guid: 665dcfee9f84f42bfbb12f201415977d,
+        type: 3}
+      propertyPath: returnSpeedMultiplier
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2210679930024097465, guid: 665dcfee9f84f42bfbb12f201415977d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 963012273}
+    - targetCorrespondingSourceObject: {fileID: 2210679930024097465, guid: 665dcfee9f84f42bfbb12f201415977d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 963012274}
   m_SourcePrefab: {fileID: 100100000, guid: 665dcfee9f84f42bfbb12f201415977d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
