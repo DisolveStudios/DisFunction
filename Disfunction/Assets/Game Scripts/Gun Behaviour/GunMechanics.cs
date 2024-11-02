@@ -165,7 +165,6 @@ public class GunMechanics : MonoBehaviour
             SingleClickAim();
         }
         else {
-
             HoldToAim();
         }
         //  Vector3 currentPosition = Vector3.Lerp(transform.localPosition, initialPosition, Time.deltaTime * 4);
@@ -176,12 +175,14 @@ public class GunMechanics : MonoBehaviour
         if(Input.GetMouseButtonDown(1)) {
             if (isAiming) {
                 initialPosition = defaultAimPosition;
+                gunViewAnimation.lockAnimationTrigger(false);
                 isAiming = false;
                 // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-33.1f, 11.3f);
             }
             else {
                 initialPosition = aimPosition;
                 isAiming = true;
+                gunViewAnimation.lockAnimationTrigger(true);
                 // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-2.5752f, -8.1848f);
             }
         }
@@ -191,10 +192,12 @@ public class GunMechanics : MonoBehaviour
          initialPosition = defaultAimPosition;
          if(Input.GetMouseButton(1)) {
             initialPosition = aimPosition;
+            gunViewAnimation.lockAnimationTrigger(true);
             // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-33.1f, 11.3f);
         } else {
             // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-2.5752f, -8.1848f);
         }
+        gunViewAnimation.lockAnimationTrigger(false);
     }
 
     private void controlGunMechanicsByFrameRate() {
