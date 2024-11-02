@@ -143,9 +143,9 @@ public class GunMechanics : MonoBehaviour
         float zRecoil = UnityEngine.Random.Range(-recoilZ, recoilZ) ;
         targetRotation += new Vector3(recoilX , yRecoil, zRecoil) * Time.fixedDeltaTime;
 
-        Vector3 kickBack = new Vector3(0f, 0, -0.2f);
-        targetMovement += kickBack  * Time.fixedDeltaTime * 50.0f;
-        targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
+        Vector3 kickBack = new Vector3(0f, 0, -kickBackPower);
+        targetMovement += kickBack  * Time.fixedDeltaTime;
+        // targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
         canShoot = true;
     }
@@ -192,7 +192,7 @@ public class GunMechanics : MonoBehaviour
         currentFPSOffset = frameRate - baseFPS;
         currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
         Debug.Log("frameRate: " + frameRate);
-        float requiredFireRate = currentFPSOffset * 0.000070f;
+        float requiredFireRate = currentFPSOffset * 0.000256f;
         float requiredReturnspeed = currentFPSOffset * 0.08f;
 
         fireRate = initialCoolDownTime + requiredFireRate;
