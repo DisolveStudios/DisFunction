@@ -20,11 +20,25 @@ public class Dummy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            onHealthZero();
         }
     }
 
-    private void OnDestroy()
+    
+    public void onHealthZero()
     {
-        damageSystem.spawn(100);
+        damageSystem.spawn(100f);
+        Debug.Log("Cube respawned with full health!");
     }
+    
+
+
+    /*    private void OnDestroy()
+        {
+            if(damageSystem != null)
+            {
+                damageSystem.spawn(100);
+            }
+        }
+    */
 }
