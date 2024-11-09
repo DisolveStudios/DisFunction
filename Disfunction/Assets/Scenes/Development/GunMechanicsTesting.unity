@@ -411,7 +411,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 31875.002
+  m_Intensity: 33131.07
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -454,7 +454,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6500
+  m_ColorTemperature: 4203
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -469,13 +469,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.49204123, y: -0, z: -0, w: -0.8705719}
+  m_LocalRotation: {x: 0.0802768, y: 0.7171769, z: -0.083881885, w: 0.68715125}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -301.05, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.335, y: 92.449, z: -0.008}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 31875.002
+  m_Intensity: 33131.07
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -832,7 +832,7 @@ Transform:
   m_GameObject: {fileID: 499280733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.59, y: 1.74, z: -27.01}
+  m_LocalPosition: {x: -3.59, y: 1.74, z: -15.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -920,7 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebc8d23e7e4a4872847b607016595df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameRateCap: 60
+  frameRateCap: 100
   capFrameRate: 1
 --- !u!4 &540574338
 Transform:
@@ -2075,15 +2075,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1823688467}
     m_Modifications:
-    - target: {fileID: 2125737940240308482, guid: 7269d81c044594e72ac45c8f4268e7a9,
-        type: 3}
-      propertyPath: kickBackPower
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5527332782677509327, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: m_Name
-      value: Gun(Model) AR- 15
+      value: Gun(Model) Kalashnikov AK-47- 15
       objectReference: {fileID: 0}
     - target: {fileID: 5527332782677509327, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
@@ -2093,12 +2088,12 @@ PrefabInstance:
     - target: {fileID: 8543041614031086391, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.229
+      value: 0.105
       objectReference: {fileID: 0}
     - target: {fileID: 8543041614031086391, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.145
+      value: -0.119
       objectReference: {fileID: 0}
     - target: {fileID: 8543041614031086391, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
@@ -2207,6 +2202,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun(Model) Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076807572012182494, guid: 665dcfee9f84f42bfbb12f201415977d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8234803570336211450, guid: 665dcfee9f84f42bfbb12f201415977d,
         type: 3}

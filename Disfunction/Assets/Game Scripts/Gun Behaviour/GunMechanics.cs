@@ -40,6 +40,7 @@ public class GunMechanics : MonoBehaviour
     public bool canShoot;
     public bool isLock = false;
     public bool minimizeFPSError;
+    public bool controlRecoilWhileAiming;
 
     [Header("Gun Objects")]
     public GameObject gunMouth;
@@ -54,6 +55,7 @@ public class GunMechanics : MonoBehaviour
     private float mouseY;
     private float currentFPSOffset;
     private float baseFPS = 30;
+    private float initialKickBack;
 
     private int initialBulletsInMag;
     private int frameCount;
@@ -66,6 +68,7 @@ public class GunMechanics : MonoBehaviour
         Cursor.visible = false;
 
         initialPosition = transform.localPosition;
+        initialKickBack = kickBackPower;
         targetMovement = initialPosition;
         defaultAimPosition = transform.localPosition;
         currentTargetAim = defaultAimPosition;
@@ -77,13 +80,34 @@ public class GunMechanics : MonoBehaviour
         gunViewAnimation = gunModelPrefab.GetComponent<GunViewAnimationTrigger>();
     }
 
-    void Update()
+    private void Update()
     {
-        mouseY = Input.GetAxis("Mouse Y");
-
-        if (Input.GetKeyDown(KeyCode.R)) {
+        DetermineAim();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             bulletsInMag = initialBulletsInMag;
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (!isLock)
+            {
+                sensitivity = 0;
+                PlayerRotation.mouseSensitivity = 0;
+                isLock = true;
+            }
+            else
+            {
+                sensitivity = 1;
+                PlayerRotation.mouseSensitivity = 1;
+                isLock = false;
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        mouseY = Input.GetAxis("Mouse Y");
 
         if(minimizeFPSError) {
             getFrameRates();
@@ -99,28 +123,7 @@ public class GunMechanics : MonoBehaviour
              canShoot = false;
              Shoot();
            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.F)) {
-            if (!isLock) {
-                sensitivity = 0;
-                PlayerRotation.mouseSensitivity = 0;
-                isLock = true;
-            }
-            else {
-                sensitivity = 1;
-                PlayerRotation.mouseSensitivity = 1;
-                isLock = false;
-            }
-        }
-        // if (isLock) {
-        //     sensitivity = 0;
-        //     PlayerRotation.mouseSensitivity = 0;
-        // }else{
-        //     sensitivity = 1;
-        //      PlayerRotation.mouseSensitivity = 1;
-        // }
-        DetermineAim();
+        } 
 
         targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
@@ -175,15 +178,26 @@ public class GunMechanics : MonoBehaviour
         if(Input.GetMouseButtonDown(1)) {
             if (isAiming) {
                 initialPosition = defaultAimPosition;
-                gunViewAnimation.lockAnimationTrigger(false);
+                if (gunViewAnimation)
+                {
+                    gunViewAnimation.lockAnimationTrigger(false);
+                }
                 isAiming = false;
+                kickBackPower = initialKickBack;
                 // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-33.1f, 11.3f);
             }
             else {
                 initialPosition = aimPosition;
                 isAiming = true;
-                gunViewAnimation.lockAnimationTrigger(true);
-                // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-2.5752f, -8.1848f);
+                if (controlRecoilWhileAiming)
+                {
+                    kickBackPower /= 2;
+                }
+                if (gunViewAnimation)
+                {
+                    gunViewAnimation.lockAnimationTrigger(true);
+                }
+                    // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-2.5752f, -8.1848f);
             }
         }
     }
@@ -192,27 +206,42 @@ public class GunMechanics : MonoBehaviour
          initialPosition = defaultAimPosition;
          if(Input.GetMouseButton(1)) {
             initialPosition = aimPosition;
-            gunViewAnimation.lockAnimationTrigger(true);
+            if (gunViewAnimation)
+            {
+                gunViewAnimation.lockAnimationTrigger(true);
+            }
             // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-33.1f, 11.3f);
         } else {
+            kickBackPower = initialKickBack;
             // crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(-2.5752f, -8.1848f);
         }
-        gunViewAnimation.lockAnimationTrigger(false);
+        if (gunViewAnimation)
+        {
+            gunViewAnimation.lockAnimationTrigger(false);
+        }
     }
 
-    private void controlGunMechanicsByFrameRate() {
+    private void controlGunMechanicsByFrameRate() {        
         currentFPSOffset = frameRate - baseFPS;
         currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
         Debug.Log("frameRate: " + frameRate);
-        float requiredFireRate = currentFPSOffset * 0.000256f;
-        float requiredReturnspeed = currentFPSOffset * 0.08f;
+        float requiredFireRate = currentFPSOffset * 0.000100f;
+        //float requiredReturnspeed = currentFPSOffset * 0.150f;
 
         fireRate = initialCoolDownTime + requiredFireRate;
-        returnspeed = initialReturnspeed - requiredReturnspeed;
-        returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
+        //returnspeed = initialReturnspeed - requiredReturnspeed;
+        //returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
     }
 
     private void getFrameRates() {
         frameRate = ApplicationFrameRate.GetCurrentFrameRate(0.1f);
     }
+
+    //private void controlRecoilByFrameRateDepndent()
+    //{
+    //    if(frameRate >= 30 && frameRate < 60) 9 || 37 - 50 = 6.5 || 53 - 65 = 5.2 || 70 - 83 = 4.2 || 81 = 3.8{
+    //        returnspeed = 9.0f;
+    //    }
+    //    else if(frameRate >= 60 && frameRate < 90) = 5.0f
+    //}
 }
