@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Dummy : MonoBehaviour
 {
     public float health;
-    public DamageSystem damageSystem;
+    public MultiDummySystem multiDummySystem;
 
     private void Start()
     {
         health = 100;
-        damageSystem = GameObject.FindGameObjectWithTag("Respawn").GetComponent<DamageSystem>();
+        multiDummySystem = GameObject.FindGameObjectWithTag("Respawn").GetComponent<MultiDummySystem>();
     }
 
     public void damage(float takeDamage)
@@ -19,26 +18,8 @@ public class Dummy : MonoBehaviour
         health -= takeDamage;
         if (health <= 0)
         {
+            multiDummySystem.total_dummy_count--;
             Destroy(gameObject);
-            onHealthZero();
         }
     }
-
-    
-    public void onHealthZero()
-    {
-        damageSystem.spawn(100f);
-        Debug.Log("Cube respawned with full health!");
-    }
-    
-
-
-    /*    private void OnDestroy()
-        {
-            if(damageSystem != null)
-            {
-                damageSystem.spawn(100);
-            }
-        }
-    */
 }

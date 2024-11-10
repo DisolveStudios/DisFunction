@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4487475231375982318}
   - component: {fileID: 5571341714306251106}
-  - component: {fileID: -7717471190175646804}
+  - component: {fileID: -8309431052024151167}
   m_Layer: 0
   m_Name: dummy
   m_TagString: Untagged
@@ -56,7 +56,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.46, y: 1.99, z: 0.79}
   m_Center: {x: 2.69, y: 0.55, z: 0.56}
---- !u!114 &-7717471190175646804
+--- !u!114 &-8309431052024151167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,8 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17020974c82b2d349b34f00afcff6052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  damageSystem: {fileID: 0}
+  health: 0
+  multiDummySystem: {fileID: 0}
+  temp_dummy_count: 0
 --- !u!1 &1310949520290122776
 GameObject:
   m_ObjectHideFlags: 0
