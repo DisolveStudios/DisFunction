@@ -413,7 +413,7 @@ MonoBehaviour:
   camRecoil: {x: 0, y: 0, z: 0}
   gunModelPrefab: {fileID: 180549570035549314}
   recoilX: -75
-  recoilY: 70
+  recoilY: 55
   recoilZ: 70
   returnspeed: 9
   snapiness: 15
