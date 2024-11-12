@@ -70,7 +70,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   multiDummySystem: {fileID: 0}
-  temp_dummy_count: 0
 --- !u!1 &1310949520290122776
 GameObject:
   m_ObjectHideFlags: 0
