@@ -17,14 +17,14 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 2
   exposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1.94
   multiplier:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 2.4
   upperHemisphereLuxValue:
     m_OverrideState: 0
     m_Value: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 20000
   updateMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   updatePeriod:
     m_OverrideState: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
     m_Value: 55261.973
   aerosolDensity:
     m_OverrideState: 1
-    m_Value: 0.01192826
+    m_Value: 0
   aerosolTint:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -176,10 +176,10 @@ MonoBehaviour:
     m_Value: 1000
   baseHeight:
     m_OverrideState: 1
-    m_Value: 2.88
+    m_Value: -17.32
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 20.25
+    m_Value: 18.39
   meanFreePath:
     m_OverrideState: 1
     m_Value: 34
@@ -260,10 +260,10 @@ MonoBehaviour:
     m_Value: 1
   skyAmbientMode:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   windOrientation:
     m_OverrideState: 1
-    m_Value: 24
+    m_Value: 44
   windSpeed:
     m_OverrideState: 1
     m_Value: 1

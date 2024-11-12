@@ -455,7 +455,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 8746
+  m_ColorTemperature: 14272
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -470,13 +470,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08561424, y: -0.8183442, z: 0.19744444, w: 0.5329153}
+  m_LocalRotation: {x: 0.01064418, y: -0.5192222, z: 0.20460595, w: 0.82971764}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 24.482, y: -112.893, z: 4.431}
+  m_LocalEulerAnglesHint: {x: 13.305, y: -61.752, z: 19.727}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,14 +551,14 @@ MonoBehaviour:
   m_ShadowResolution:
     m_Override: 512
     m_UseOverride: 1
-    m_Level: 0
+    m_Level: 1
   m_ShadowDimmer: 1
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
-    m_Level: 0
+    m_Level: 2
   m_RayTracedContactShadow: 0
   m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
   m_PenumbraTint: 0
@@ -688,13 +688,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  useOcclusion: 0
+  useOcclusion: 1
   occlusionRadius: 0.1
   useBackgroundCloudOcclusion: 0
   sampleCount: 32
   occlusionOffset: 0.05
   scale: 1
-  allowOffScreen: 0
+  allowOffScreen: 1
   volumetricCloudOcclusion: 0
   occlusionRemapCurve:
     <length>k__BackingField: 2
@@ -1244,7 +1244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432432459}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1355,7 +1355,7 @@ Transform:
   m_GameObject: {fileID: 499280733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.59, y: 1.74, z: -15.34}
+  m_LocalPosition: {x: -3.59, y: 2.24, z: -15.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4204,7 +4204,7 @@ PrefabInstance:
     - target: {fileID: 2125737940240308482, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: recoilY
-      value: 80
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5527332782677509327, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
@@ -4219,7 +4219,7 @@ PrefabInstance:
     - target: {fileID: 8543041614031086391, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 8543041614031086391, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
