@@ -7,10 +7,9 @@ public class Dummy : MonoBehaviour
     public float health;
     public DummyDamageSystem dummyDamageSystem;
     public bool dummyMovement;
-    public float movementDistance;
-    public float moveSpeed = 5f;
+    public float movementSpeed;
     private Vector3 direction;
-
+    public float movementRange;
     public float minX;
     public float maxX;
 
@@ -22,9 +21,8 @@ public class Dummy : MonoBehaviour
         int random = Random.Range(0, 2);
         if (random == 0) direction = Vector3.right;
         else direction = Vector3.left;
-
-        minX = transform.position.x - movementDistance;
-        maxX = transform.position.x + movementDistance;
+        minX = transform.position.x - movementRange;
+        maxX = transform.position.x + movementRange;
     }
     private void Update()
     {
@@ -33,7 +31,7 @@ public class Dummy : MonoBehaviour
 
     public void moveHorizontally()
     {
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        transform.Translate(direction * movementSpeed * Time.deltaTime);
         
 
         if (transform.position.x <= minX || transform.position.x >= maxX)

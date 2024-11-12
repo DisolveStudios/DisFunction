@@ -23,8 +23,8 @@ public class DummyDamageSystem : MonoBehaviour
     public Transform spawnCenter;
     public float spawnRadius = 1.5f;
     public bool moveDummies;
-    public float movementDistance;
-
+    public float movementRange;
+    public float movementSpeed;
 
     private void Update()
     {
@@ -54,18 +54,19 @@ public class DummyDamageSystem : MonoBehaviour
         Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, 10f, -5f);
         dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
         this.health = health;
-        this.movementDistance = movementDistance;
+        Dummy dummyScript = dummy.GetComponent<Dummy>();
+        if (!moveDummies)
+        {
+            movementSpeed = 0;
+        }
+        if (dummyScript != null)
+        {
+            dummyScript.movementRange = movementRange;
+            dummyScript.movementSpeed = movementSpeed;
+        }
         total_dummy_count++;
         
     }
-
-    /*public void checkMovement()
-    {
-        if(moveDummies == true)
-        {
-            
-        }
-    }*/
 
     public void checkIfAlive()
     {
@@ -76,7 +77,7 @@ public class DummyDamageSystem : MonoBehaviour
                     spawnMultipleDummies(100f);
                     break;
                 case SpawnType.SingleDummy:
-                    spawnSingleDummy(100f, movementDistance);
+                    spawnSingleDummy(100f, this.movementRange);
                     break;
             }
         }
