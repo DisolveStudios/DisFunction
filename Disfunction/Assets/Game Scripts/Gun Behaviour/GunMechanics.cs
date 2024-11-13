@@ -131,6 +131,12 @@ public class GunMechanics : MonoBehaviour
             Debug.DrawRay(gunMouth.transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             GameObject obj = Instantiate(debugBall, hit.point, Quaternion.identity);
             obj.transform.SetParent(hit.transform, true);
+            Dummy DummySystem = hit.transform.GetComponent<Dummy>();
+            Debug.Log(DummySystem);
+            if(DummySystem != null)
+            {
+                DummySystem.damage(10);
+            }
        }
 
         float yRecoil = UnityEngine.Random.Range(-recoilY, recoilY) ;
