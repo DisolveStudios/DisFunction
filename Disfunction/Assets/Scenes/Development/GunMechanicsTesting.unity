@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &71782099
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1529,7 +1529,6 @@ GameObject:
   m_Component:
   - component: {fileID: 540574338}
   - component: {fileID: 540574337}
-  - component: {fileID: 540574339}
   m_Layer: 0
   m_Name: Application Manager
   m_TagString: Respawn
@@ -4112,7 +4111,7 @@ PrefabInstance:
     - target: {fileID: 40877634921508202, guid: 9951d52eda6ce4f3396d606019615079,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.31
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 40877634921508202, guid: 9951d52eda6ce4f3396d606019615079,
         type: 3}
@@ -4405,3 +4404,4 @@ SceneRoots:
   - {fileID: 1088357590}
   - {fileID: 209704449}
   - {fileID: 1687469686}
+  - {fileID: 432432461}
