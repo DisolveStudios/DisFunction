@@ -11,22 +11,25 @@ public enum SpawnType
 
 public class DummyDamageSystem : MonoBehaviour
 {
-
-    public GameObject obj;
-    public GameObject dummy;
-
-    public SpawnChecker spawnChecker;
-    public SpawnType spawnType;
-    public float spawnRangeX;
-    public float spawnRangeZ;
     public float health;
     public float numOfDummies;
     public float total_dummy_count;
-    public Transform spawnCenter;
-    public float spawnRadius = 1.5f;
-    public bool moveDummies;
+
+    [Header("Adjust dummy movement here")]
     public float movementRange;
     public float movementSpeed;
+    public float spawnRadius;
+    public float spawnRangeX;
+    public float spawnRangeZ;
+
+    public bool moveDummies;
+
+    public SpawnType spawnType;
+
+    public Transform spawnCenter;
+    public SpawnChecker spawnChecker;
+    public GameObject obj;
+    public GameObject dummy;
 
     private void Update()
     {
@@ -40,7 +43,6 @@ public class DummyDamageSystem : MonoBehaviour
         {
             Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, spawnRangeX, spawnRangeZ);
 
-            
             dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
             this.health = health;
             Dummy dummyScript = dummy.GetComponent<Dummy>();
@@ -54,14 +56,11 @@ public class DummyDamageSystem : MonoBehaviour
                 dummyScript.movementSpeed = movementSpeed;
             }
             total_dummy_count++;
-           
-
         }
     }
 
     public void spawnSingleDummy(float health, float movementDistance)
     {
-
         Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, 10f, -5f);
         dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
         this.health = health;
@@ -76,7 +75,6 @@ public class DummyDamageSystem : MonoBehaviour
             dummyScript.movementSpeed = movementSpeed;
         }
         total_dummy_count++;
-        
     }
 
     public void checkIfAlive()

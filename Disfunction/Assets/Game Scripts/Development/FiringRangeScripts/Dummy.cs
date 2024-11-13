@@ -5,13 +5,14 @@ using UnityEngine;
 public class Dummy : MonoBehaviour
 {
     public float health;
-    public DummyDamageSystem dummyDamageSystem;
-    public bool dummyMovement;
     public float movementSpeed;
-    private Vector3 direction;
     public float movementRange;
     public float minX;
     public float maxX;
+
+    public DummyDamageSystem dummyDamageSystem;
+
+    private Vector3 direction;
 
     private void Start()
     {
@@ -33,18 +34,12 @@ public class Dummy : MonoBehaviour
     public void moveHorizontally()
     {
         transform.Translate(direction * movementSpeed * Time.deltaTime);
-        
 
-        if (transform.position.x <= minX || transform.position.x >= maxX)
+        if (transform.position.x <= minX || transform.position.x >= maxX || Physics.Raycast(transform.position, direction, 1f))
         {
             direction = -direction;  
         }
 
-        // Check for collision in the forward direction and change direction if needed
-        if (Physics.Raycast(transform.position, direction, 1f))
-        {
-            direction = -direction;  // Reverse direction if about to collide
-        }
     }
 
     public void damage(float takeDamage)
