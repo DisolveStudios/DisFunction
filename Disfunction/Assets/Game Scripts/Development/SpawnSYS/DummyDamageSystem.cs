@@ -17,6 +17,8 @@ public class DummyDamageSystem : MonoBehaviour
 
     public SpawnChecker spawnChecker;
     public SpawnType spawnType;
+    public float spawnRangeX;
+    public float spawnRangeZ;
     public float health;
     public float numOfDummies;
     public float total_dummy_count;
@@ -36,7 +38,7 @@ public class DummyDamageSystem : MonoBehaviour
         total_dummy_count = 0;
         while (total_dummy_count < numOfDummies)
         {
-            Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, 10f, -5f);
+            Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, spawnRangeX, spawnRangeZ);
 
             
             dummy = Instantiate(obj, spawnPosition, Quaternion.identity);

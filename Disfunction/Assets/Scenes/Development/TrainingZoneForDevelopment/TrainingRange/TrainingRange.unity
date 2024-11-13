@@ -309,7 +309,7 @@ Transform:
   m_GameObject: {fileID: 497319840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.3, y: 0.5, z: 3.5}
+  m_LocalPosition: {x: 16.2, y: 0.5, z: 3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 64433.14
+  m_Intensity: 130000
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -577,7 +577,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 64433.14
+  m_Intensity: 130000
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -620,7 +620,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 3698
+  m_ColorTemperature: 6342
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -797,14 +797,16 @@ MonoBehaviour:
   dummy: {fileID: 0}
   spawnChecker: {fileID: 1408041196}
   spawnType: 0
+  spawnRangeX: 10
+  spawnRangeZ: -8
   health: 100
   numOfDummies: 5
   total_dummy_count: 0
   spawnCenter: {fileID: 497319841}
-  spawnRadius: 1.8
+  spawnRadius: 3
   moveDummies: 1
-  movementRange: 3
-  movementSpeed: 5
+  movementRange: 10
+  movementSpeed: 3.5
 --- !u!114 &1408041196
 MonoBehaviour:
   m_ObjectHideFlags: 0
