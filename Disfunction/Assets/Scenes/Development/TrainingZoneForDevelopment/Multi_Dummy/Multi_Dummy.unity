@@ -803,7 +803,8 @@ MonoBehaviour:
   spawnCenter: {fileID: 497319841}
   spawnRadius: 1.8
   moveDummies: 1
-  movementDistance: 3
+  movementRange: 3
+  movementSpeed: 5
 --- !u!114 &1408041196
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -38,12 +38,21 @@ public class DummyDamageSystem : MonoBehaviour
         {
             Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, 10f, -5f);
 
-            if (SpawnChecker.IsPositionFree(spawnPosition, spawnRadius))
+            
+            dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
+            this.health = health;
+            Dummy dummyScript = dummy.GetComponent<Dummy>();
+            if (!moveDummies)
             {
-                dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
-                this.health = health;
-                total_dummy_count++;
+                movementSpeed = 0;
             }
+            if (dummyScript != null)
+            {
+                dummyScript.movementRange = movementRange;
+                dummyScript.movementSpeed = movementSpeed;
+            }
+            total_dummy_count++;
+           
 
         }
     }

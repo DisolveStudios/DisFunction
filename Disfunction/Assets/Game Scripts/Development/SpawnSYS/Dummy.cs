@@ -24,6 +24,7 @@ public class Dummy : MonoBehaviour
         minX = transform.position.x - movementRange;
         maxX = transform.position.x + movementRange;
     }
+
     private void Update()
     {
         moveHorizontally();
