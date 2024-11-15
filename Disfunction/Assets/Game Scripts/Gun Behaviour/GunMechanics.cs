@@ -144,13 +144,13 @@ public class GunMechanics : MonoBehaviour
             Debug.DrawRay(gunMouth.transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             GameObject obj = Instantiate(debugBall, hit.point, Quaternion.identity);
             obj.transform.SetParent(hit.transform, true);
-            Dummy DummySystem = hit.transform.GetComponent<Dummy>();
-            Debug.Log(DummySystem);
-            if(DummySystem != null)
+            ImpactBearer impactBearer = hit.transform.GetComponent<ImpactBearer>();
+
+            if (impactBearer != null)
             {
-                DummySystem.damage(10);
+                impactBearer.parent.damage(10.0f, impactBearer.impact);
             }
-       }
+        }
 
         float yRecoil = UnityEngine.Random.Range(-recoilY, recoilY) ;
         float zRecoil = UnityEngine.Random.Range(-recoilZ, recoilZ) ;

@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Impact
+{
+    Head,
+    Body,
+    Foot
+}
+
 public class Dummy : MonoBehaviour
 {
     public float health;
@@ -9,8 +16,15 @@ public class Dummy : MonoBehaviour
     public float movementRange;
     public float minX;
     public float maxX;
+    public float bodyDamageRatio;
+    public float footDamageRatio;
+
+    public int damageRatio;
 
     public DummyDamageSystem dummyDamageSystem;
+    public GameObject head;
+    public GameObject body;
+    public GameObject leg;
 
     private Vector3 direction;
 
@@ -42,10 +56,23 @@ public class Dummy : MonoBehaviour
 
     }
 
-    public void damage(float takeDamage)
+    public void damage(float takeDamage, Impact impact)
     {
-        health -= takeDamage;
-        if (health <= 0)
+        switch (impact)
+        {
+            case Impact.Head:
+                health -= takeDamage * 1/1;
+                break;
+
+            case Impact.Body:
+                health -= takeDamage * bodyDamageRatio;
+                break;
+
+            case Impact.Foot:
+                health -= takeDamage * footDamageRatio;
+                break;
+        }
+        if(health <= 0)
         {
             dummyDamageSystem.total_dummy_count--;
             Destroy(gameObject);
