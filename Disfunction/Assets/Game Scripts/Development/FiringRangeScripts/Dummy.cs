@@ -31,7 +31,12 @@ public class Dummy : MonoBehaviour
     private void Start()
     {
         health = 100;
-        dummyDamageSystem = GameObject.FindGameObjectWithTag("Respawn").GetComponent<DummyDamageSystem>();
+        GameObject spawner = GameObject.FindGameObjectWithTag("Respawn");
+        
+        if(spawner != null)
+        {
+            dummyDamageSystem = spawner.GetComponent<DummyDamageSystem>();
+        }
 
         int random = Random.Range(0, 2);
         if (random == 0) direction = Vector3.right;
@@ -74,7 +79,10 @@ public class Dummy : MonoBehaviour
         }
         if(health <= 0)
         {
-            dummyDamageSystem.total_dummy_count--;
+            if (dummyDamageSystem != null)
+            {
+                dummyDamageSystem.total_dummy_count--;
+            }
             Destroy(gameObject);
         }
     }
