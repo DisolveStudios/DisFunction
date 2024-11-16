@@ -420,6 +420,12 @@ MonoBehaviour:
   kickBackPower: 7.5
   fireRate: 0.08
   sensitivity: 1
+  damage: 10
+  closeRange: 25
+  midRange: 40
+  ImpactWithinCloseRange: 0
+  ImpactWithinMidRange: 2
+  ImpactWithinFarRange: 4
   bulletsInMag: 30
   isSingleClick: 1
   isAiming: 0

@@ -2,28 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Impact
+{
+    Head,
+    Body,
+    Foot
+}
+
 public class Dummy : MonoBehaviour
 {
     public float health;
     public float movementSpeed;
     public float movementRange;
-    public float minX;
-    public float maxX;
+    public float minMovementX;
+    public float maxMovementX;
+    public float bodyDamageRatio;
+    public float footDamageRatio;
 
-    public DummyDamageSystem dummyDamageSystem;
+    public int damageRatio;
+
+    public DummySpawnSystem dummyDamageSystem;
+    public GameObject head;
+    public GameObject body;
+    public GameObject leg;
 
     private Vector3 direction;
 
     private void Start()
     {
-        health = 100;
-        dummyDamageSystem = GameObject.FindGameObjectWithTag("Respawn").GetComponent<DummyDamageSystem>();
+        GameObject spawner = GameObject.FindGameObjectWithTag("Respawn");
+        
+        if(spawner != null)
+        {
+            dummyDamageSystem = spawner.GetComponent<DummySpawnSystem>();
+        }
 
         int random = Random.Range(0, 2);
         if (random == 0) direction = Vector3.right;
         else direction = Vector3.left;
-        minX = transform.position.x - movementRange;
-        maxX = transform.position.x + movementRange;
+        minMovementX = transform.position.x - movementRange;
+        maxMovementX = transform.position.x + movementRange;
     }
 
     private void Update()
@@ -35,19 +53,35 @@ public class Dummy : MonoBehaviour
     {
         transform.Translate(direction * movementSpeed * Time.deltaTime);
 
-        if (transform.position.x <= minX || transform.position.x >= maxX || Physics.Raycast(transform.position, direction, 1f))
+        if (transform.position.x <= minMovementX || transform.position.x >= maxMovementX || Physics.Raycast(transform.position, direction, 1f))
         {
             direction = -direction;  
         }
 
     }
 
-    public void damage(float takeDamage)
+    public void damage(float takeDamage, Impact impact)
     {
-        health -= takeDamage;
-        if (health <= 0)
+        switch (impact)
         {
-            dummyDamageSystem.total_dummy_count--;
+            case Impact.Head:
+                health -= takeDamage * 1/1;
+                break;
+
+            case Impact.Body:
+                health -= takeDamage * bodyDamageRatio;
+                break;
+
+            case Impact.Foot:
+                health -= takeDamage * footDamageRatio;
+                break;
+        }
+        if(health <= 0)
+        {
+            if (dummyDamageSystem != null)
+            {
+                dummyDamageSystem.total_dummy_count--;
+            }
             Destroy(gameObject);
         }
     }

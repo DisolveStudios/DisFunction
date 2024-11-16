@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class GunMechanics : MonoBehaviour
@@ -31,6 +32,14 @@ public class GunMechanics : MonoBehaviour
     public float kickBackPower;
     public float fireRate = 0.1f;
     public float sensitivity = 1;
+
+    [Header("Gun Damage and Impact Variables")]
+    public float damage = 10.0f;
+    public float closeRange;
+    public float midRange;
+    public float ImpactWithinCloseRange;
+    public float ImpactWithinMidRange;
+    public float ImpactWithinFarRange;
 
     public int bulletsInMag = 40;
 
@@ -144,13 +153,15 @@ public class GunMechanics : MonoBehaviour
             Debug.DrawRay(gunMouth.transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             GameObject obj = Instantiate(debugBall, hit.point, Quaternion.identity);
             obj.transform.SetParent(hit.transform, true);
-            Dummy DummySystem = hit.transform.GetComponent<Dummy>();
-            Debug.Log(DummySystem);
-            if(DummySystem != null)
+            ImpactBearer impactBearer = hit.transform.GetComponent<ImpactBearer>();
+
+            if (impactBearer != null)
             {
-                DummySystem.damage(10);
+                float distanceBetweenGunAndObject = Geometry.GetDistance(gunMouth.transform.position, hit.point);
+
+                impactBearer.parent.damage(getDamageByDistance(damage, distanceBetweenGunAndObject), impactBearer.impact);
             }
-       }
+        }
 
         float yRecoil = UnityEngine.Random.Range(-recoilY, recoilY) ;
         float zRecoil = UnityEngine.Random.Range(-recoilZ, recoilZ) ;
@@ -161,6 +172,18 @@ public class GunMechanics : MonoBehaviour
         // targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
         canShoot = true;
+    }
+
+    private float getDamageByDistance(float damage, float distance)
+    {
+        if (distance < closeRange)
+            return damage - ImpactWithinCloseRange;
+
+        else if (distance >= closeRange && distance < midRange)
+            return damage - ImpactWithinMidRange;
+
+        else
+            return damage - ImpactWithinFarRange;
     }
 
     void DetermineAim() {
