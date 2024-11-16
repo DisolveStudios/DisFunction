@@ -32,9 +32,14 @@ public class GunMechanics : MonoBehaviour
     public float kickBackPower;
     public float fireRate = 0.1f;
     public float sensitivity = 1;
+
+    [Header("Gun Damage and Impact Variables")]
     public float damage = 10.0f;
-    public float ImpactOver30;
-    public float ImpactOver40;
+    public float closeRange;
+    public float midRange;
+    public float ImpactWithinCloseRange;
+    public float ImpactWithinMidRange;
+    public float ImpactWithinFarRange;
 
     public int bulletsInMag = 40;
 
@@ -149,20 +154,12 @@ public class GunMechanics : MonoBehaviour
             GameObject obj = Instantiate(debugBall, hit.point, Quaternion.identity);
             obj.transform.SetParent(hit.transform, true);
             ImpactBearer impactBearer = hit.transform.GetComponent<ImpactBearer>();
-            float impactOver30 = damage - ImpactOver30;
-            float impactOver40 = damage - ImpactOver40;
+
             if (impactBearer != null)
             {
                 float distanceBetweenGunAndObject = Geometry.GetDistance(gunMouth.transform.position, hit.point);
 
-                if (distanceBetweenGunAndObject < 30)
-                    impactBearer.parent.damage(10.0f, impactBearer.impact);
-
-                else if (distanceBetweenGunAndObject >= 30 && distanceBetweenGunAndObject < 40)
-                    impactBearer.parent.damage(impactOver30, impactBearer.impact);
-
-                else
-                    impactBearer.parent.damage(impactOver40, impactBearer.impact);
+                impactBearer.parent.damage(getDamageByDistance(damage, distanceBetweenGunAndObject), impactBearer.impact);
             }
         }
 
@@ -175,6 +172,18 @@ public class GunMechanics : MonoBehaviour
         // targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
         canShoot = true;
+    }
+
+    private float getDamageByDistance(float damage, float distance)
+    {
+        if (distance < closeRange)
+            return damage - ImpactWithinCloseRange;
+
+        else if (distance >= closeRange && distance < midRange)
+            return damage - ImpactWithinMidRange;
+
+        else
+            return damage - ImpactWithinFarRange;
     }
 
     void DetermineAim() {
