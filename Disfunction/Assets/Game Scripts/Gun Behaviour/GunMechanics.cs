@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class GunMechanics : MonoBehaviour
@@ -148,7 +149,16 @@ public class GunMechanics : MonoBehaviour
 
             if (impactBearer != null)
             {
-                impactBearer.parent.damage(10.0f, impactBearer.impact);
+                float distanceBetweenGunAndObject = Geometry.GetDistance(gunMouth.transform.position, hit.point);
+
+                if (distanceBetweenGunAndObject < 20)
+                    impactBearer.parent.damage(10.0f, impactBearer.impact);
+
+                else if (distanceBetweenGunAndObject >= 20 && distanceBetweenGunAndObject < 30)
+                    impactBearer.parent.damage(9.0f, impactBearer.impact);
+
+                else
+                    impactBearer.parent.damage(8.0f, impactBearer.impact);
             }
         }
 

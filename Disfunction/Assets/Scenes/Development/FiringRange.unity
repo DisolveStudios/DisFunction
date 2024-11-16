@@ -802,7 +802,7 @@ MonoBehaviour:
   spawnRangeX: 10
   spawnRangeZ: -8
   moveDummies: 0
-  spawnType: 0
+  spawnType: 1
   spawnCenter: {fileID: 497319841}
   spawnChecker: {fileID: 1408041196}
   obj: {fileID: 3462430777901176906, guid: 4b43c05c00361934a84c0c4d361c1dd8, type: 3}
