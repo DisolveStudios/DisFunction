@@ -549,21 +549,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Default Player (Camera Attached)
       objectReference: {fileID: 0}
-    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
-        type: 3}
-      propertyPath: obj
-      value: 
-      objectReference: {fileID: 256629792}
-    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
-        type: 3}
-      propertyPath: ImpactOver30
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
-        type: 3}
-      propertyPath: ImpactOver40
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

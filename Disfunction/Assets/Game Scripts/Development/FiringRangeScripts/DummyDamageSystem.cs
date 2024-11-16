@@ -9,7 +9,7 @@ public enum SpawnType
     SingleDummy
 }
 
-public class DummyDamageSystem : MonoBehaviour
+public class DummySpawnSystem : MonoBehaviour
 {
     public float health;
     public float numOfDummies;
@@ -26,7 +26,6 @@ public class DummyDamageSystem : MonoBehaviour
 
     public SpawnType spawnType;
 
-    public Transform spawnCenter;
     public SpawnChecker spawnChecker;
     public GameObject obj;
     public GameObject dummy;
@@ -41,7 +40,7 @@ public class DummyDamageSystem : MonoBehaviour
         total_dummy_count = 0;
         while (total_dummy_count < numOfDummies)
         {
-            Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, spawnRangeX, spawnRangeZ);
+            Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, spawnRangeX, spawnRangeZ);
 
             dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
             this.health = health;
@@ -61,7 +60,7 @@ public class DummyDamageSystem : MonoBehaviour
 
     public void spawnSingleDummy(float health, float movementDistance)
     {
-        Vector3 spawnPosition = spawnChecker.getRandomPosition(spawnCenter.position, 10f, -5f);
+        Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, 10f, -5f);
         dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
         this.health = health;
         Dummy dummyScript = dummy.GetComponent<Dummy>();

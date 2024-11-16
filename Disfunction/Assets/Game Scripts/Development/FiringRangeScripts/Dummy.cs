@@ -14,14 +14,14 @@ public class Dummy : MonoBehaviour
     public float health;
     public float movementSpeed;
     public float movementRange;
-    public float minX;
-    public float maxX;
+    public float minMovementX;
+    public float maxMovementX;
     public float bodyDamageRatio;
     public float footDamageRatio;
 
     public int damageRatio;
 
-    public DummyDamageSystem dummyDamageSystem;
+    public DummySpawnSystem dummyDamageSystem;
     public GameObject head;
     public GameObject body;
     public GameObject leg;
@@ -30,19 +30,18 @@ public class Dummy : MonoBehaviour
 
     private void Start()
     {
-        health = 100;
         GameObject spawner = GameObject.FindGameObjectWithTag("Respawn");
         
         if(spawner != null)
         {
-            dummyDamageSystem = spawner.GetComponent<DummyDamageSystem>();
+            dummyDamageSystem = spawner.GetComponent<DummySpawnSystem>();
         }
 
         int random = Random.Range(0, 2);
         if (random == 0) direction = Vector3.right;
         else direction = Vector3.left;
-        minX = transform.position.x - movementRange;
-        maxX = transform.position.x + movementRange;
+        minMovementX = transform.position.x - movementRange;
+        maxMovementX = transform.position.x + movementRange;
     }
 
     private void Update()
@@ -54,7 +53,7 @@ public class Dummy : MonoBehaviour
     {
         transform.Translate(direction * movementSpeed * Time.deltaTime);
 
-        if (transform.position.x <= minX || transform.position.x >= maxX || Physics.Raycast(transform.position, direction, 1f))
+        if (transform.position.x <= minMovementX || transform.position.x >= maxMovementX || Physics.Raycast(transform.position, direction, 1f))
         {
             direction = -direction;  
         }
