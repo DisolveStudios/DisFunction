@@ -27,11 +27,13 @@ public class GunMechanics : MonoBehaviour
     public float recoilY;
     public float recoilZ;
     public float returnspeed;
-    private float initialReturnspeed;
+    public float aimPositionSpeed;
     public float snapiness;
     public float kickBackPower;
     public float fireRate = 0.1f;
     public float sensitivity = 1;
+    public float gunHorizontalSway = 1.0f;
+    public float gunVerticalSway = 1.0f;
 
     [Header("Gun Damage and Impact Variables")]
     public float damage = 10.0f;
@@ -58,13 +60,17 @@ public class GunMechanics : MonoBehaviour
     private Vector3 camRot;
     private Vector3 camCurr;
     private Vector3 prevPos;
+    private Vector3 prevShootPosition;
 
     private float initialCoolDownTime;
+    private float initialReturnspeed;
     private float latestTime;
     private float mouseY;
+    private float mouseX;
     private float currentFPSOffset;
     private float baseFPS = 30;
     private float initialKickBack;
+    private float mouseYMax;
 
     private int initialBulletsInMag;
     private int frameCount;
@@ -79,6 +85,7 @@ public class GunMechanics : MonoBehaviour
 
         initialPosition = transform.localPosition;
         initialKickBack = kickBackPower;
+        initialReturnspeed = returnspeed;
         targetMovement = initialPosition;
         defaultAimPosition = transform.localPosition;
         currentTargetAim = defaultAimPosition;
@@ -96,6 +103,15 @@ public class GunMechanics : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             bulletsInMag = initialBulletsInMag;
+        }
+
+        if (Input.GetMouseButton(0) && canShoot && bulletsInMag > 0)
+        {
+            returnspeed = 6.0f;
+        }
+        else
+        {
+            returnspeed = 9.0f;
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -118,6 +134,7 @@ public class GunMechanics : MonoBehaviour
     void FixedUpdate()
     {
         mouseY = Input.GetAxis("Mouse Y");
+        mouseX = Input.GetAxis("Mouse X");
 
         if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
            if(Time.time - latestTime > fireRate) {
@@ -130,11 +147,26 @@ public class GunMechanics : MonoBehaviour
            }
         } 
 
-        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0,0,0), Time.fixedDeltaTime * returnspeed);
+        if (Input.GetMouseButton(0) && canShoot && bulletsInMag > 0)
+        {
+            if (Time.time - latestTime > fireRate)
+            {
+                if (gunViewAnimation)
+                {
+                    gunViewAnimation.disableViewAnimation();
+                }
+                latestTime = Time.time;
+                canShoot = false;
+                returnspeed = initialReturnspeed;
+                Shoot();
+            }
+        }
+
+        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0, 0, 0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
         
-        targetMovement = Vector3.Lerp(targetMovement, initialPosition, Time.deltaTime * 7.6f);
+        targetMovement = Vector3.Lerp(targetMovement, initialPosition, Time.deltaTime * aimPositionSpeed);
         transform.localPosition = targetMovement;
 
         camSen += new Vector3(-mouseY * sensitivity, 0, 0);
