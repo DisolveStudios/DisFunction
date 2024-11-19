@@ -50,12 +50,12 @@ MonoBehaviour:
   total_dummy_count: 0
   movementRange: 10
   movementSpeed: 3.5
-  spawnRadius: 1.8
-  spawnRangeX: 10
-  spawnRangeZ: -8
-  moveDummies: 1
-  spawnType: 1
-  spawnCenter: {fileID: 0}
+  spawnRadius: 0.5
+  spawnRangeX: 17
+  spawnHeight: 1
+  spawnRangeZ: 10
+  moveDummies: 0
+  spawnType: 0
   spawnChecker: {fileID: 9088907285371245547}
   obj: {fileID: 3462430777901176906, guid: 4b43c05c00361934a84c0c4d361c1dd8, type: 3}
   dummy: {fileID: 0}
@@ -71,3 +71,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0d8d39722f4cd4892ba031dd6ae8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDummiesInRange: 0

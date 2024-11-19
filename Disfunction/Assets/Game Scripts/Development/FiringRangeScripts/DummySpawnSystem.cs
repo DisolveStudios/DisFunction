@@ -20,6 +20,7 @@ public class DummySpawnSystem : MonoBehaviour
     public float movementSpeed;
     public float spawnRadius;
     public float spawnRangeX;
+    public float spawnHeight;
     public float spawnRangeZ;
 
     public bool moveDummies;
@@ -38,29 +39,39 @@ public class DummySpawnSystem : MonoBehaviour
     public void spawnMultipleDummies(float health)
     {
         total_dummy_count = 0;
+
         while (total_dummy_count < numOfDummies)
         {
-            Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, spawnRangeX, spawnRangeZ);
+            Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, spawnRangeX, spawnHeight, spawnRangeZ);
 
-            dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
-            this.health = health;
-            Dummy dummyScript = dummy.GetComponent<Dummy>();
-            if (!moveDummies)
+            if (spawnChecker.isPositionFree(spawnPosition, spawnRadius))
             {
-                movementSpeed = 0;
+
+                Debug.Log(spawnPosition.x + " and " + spawnPosition.z);
+
+                dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
+
+                this.health = health;
+
+                Dummy dummyScript = dummy.GetComponent<Dummy>();
+
+                if (!moveDummies)
+                {
+                    movementSpeed = 0;
+                }
+                if (dummyScript != null)
+                {
+                    dummyScript.movementRange = movementRange;
+                    dummyScript.movementSpeed = movementSpeed;
+                }
+                total_dummy_count++;
             }
-            if (dummyScript != null)
-            {
-                dummyScript.movementRange = movementRange;
-                dummyScript.movementSpeed = movementSpeed;
-            }
-            total_dummy_count++;
         }
     }
 
     public void spawnSingleDummy(float health, float movementDistance)
     {
-        Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, 10f, -5f);
+        Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, spawnRangeX, spawnHeight, spawnRangeZ);
         dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
         this.health = health;
         Dummy dummyScript = dummy.GetComponent<Dummy>();
