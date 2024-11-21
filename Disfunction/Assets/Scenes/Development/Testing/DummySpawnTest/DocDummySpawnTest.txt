@@ -1,0 +1,16 @@
+
+// File 1
+
+Bug : Dummies are spawning but also overlaping over one-another.
+
+test : spawn upto 45 dummies with spawn radius of 0.5, uncheck the moving dummies option(turn off) if it is on.
+	   dummies pass through one another while moving but when spawned they should not overlap.
+	       
+	   [DummySpawnSystem script is attached to the dummySpawner which is already present in the scene]
+
+
+required result : dummies shouldn't overlap when spawned.
+
+
+Process: Open DummySpawnTest folder and read the doc and 
+         open the scene to check if dummies are overlaping when played.

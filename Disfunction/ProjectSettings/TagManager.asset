@@ -6,7 +6,6 @@ TagManager:
   tags:
   - leg
   - head
-  - body
   - chest
   layers:
   - Default

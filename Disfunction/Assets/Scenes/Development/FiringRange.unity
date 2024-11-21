@@ -1128,6 +1128,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DummySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8884439731947730631, guid: d547d319aa9d74649916af16698d3af8,
+        type: 3}
+      propertyPath: numOfDummies
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
