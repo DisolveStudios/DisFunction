@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 165337774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.98, z: 0.157}
+  m_LocalPosition: {x: 0, y: 0.06, z: 0.083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,6 +380,12 @@ MonoBehaviour:
   upSpeed: 15
   downSpeed: 10
   rotationSpeed: 80
+  verticalCameraSensitivity: 20
+  horizontalCameraSensitivity: 50
+  forwardAcceleration: 10
+  sideAcceleration: 10
+  deceleration: 15
+  cameraTransform: {fileID: 165337775}
 --- !u!65 &830373216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -461,7 +467,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.02, y: 3.7498, z: -11.411}
-  m_LocalScale: {x: 0.55, y: 0.2818, z: 1.2084}
+  m_LocalScale: {x: 0.55, y: 0.2818, z: 0.88}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 165337775}
