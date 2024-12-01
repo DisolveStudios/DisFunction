@@ -464,8 +464,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
+      propertyPath: recoilX
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
+        type: 3}
       propertyPath: snapiness
-      value: 40
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
+        type: 3}
+      propertyPath: aimPosition.z
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

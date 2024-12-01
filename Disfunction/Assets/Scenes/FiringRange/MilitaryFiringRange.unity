@@ -617,13 +617,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18674581, y: 0.65256107, z: -0.17061202, w: 0.71426994}
+  m_LocalRotation: {x: 0.30544072, y: 0.012177222, z: 0.10704548, w: 0.9460967}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 29.304, y: 84.83, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.124, y: 6.207, z: 14.877}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4617,16 +4617,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Default Player (Camera Attached)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
-        type: 3}
-      propertyPath: recoilX
-      value: -45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
-        type: 3}
-      propertyPath: returnspeed
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

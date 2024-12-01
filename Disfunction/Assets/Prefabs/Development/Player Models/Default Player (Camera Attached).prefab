@@ -690,7 +690,7 @@ PrefabInstance:
     - target: {fileID: 2125737940240308482, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: recoilX
-      value: -30
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 2125737940240308482, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
@@ -700,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 2125737940240308482, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}
       propertyPath: returnspeed
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5527332782677509327, guid: 7269d81c044594e72ac45c8f4268e7a9,
         type: 3}

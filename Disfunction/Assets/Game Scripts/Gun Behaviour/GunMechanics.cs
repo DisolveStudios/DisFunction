@@ -103,6 +103,15 @@ public class GunMechanics : MonoBehaviour
             bulletsInMag = initialBulletsInMag;
         }
 
+        if (Input.GetMouseButton(0) && canShoot && bulletsInMag > 0)
+        {
+            returnspeed = 1.0f;
+        }
+        else
+        {
+            returnspeed = 9.0f;
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (!isLock)
@@ -148,10 +157,6 @@ public class GunMechanics : MonoBehaviour
                 returnspeed = initialReturnspeed;
                 Shoot();
             }
-        }
-        else
-        {
-            returnspeed = 9.0f;
         }
 
         targetRotation = Vector3.Lerp(targetRotation, new Vector3(mouseY * gunVerticalSway , mouseX * gunHorizontalSway, 0), Time.fixedDeltaTime * returnspeed);
