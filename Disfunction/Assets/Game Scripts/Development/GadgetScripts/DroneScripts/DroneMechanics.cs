@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DroneMechanics : MonoBehaviour
 {
@@ -10,6 +11,16 @@ public class DroneMechanics : MonoBehaviour
     public float upSpeed;
     public float downSpeed;
     public float rotationSpeed;
+    public float verticalCameraSensitivity;
+    public float horizontalCameraSensitivity;
+    public float forwardAcceleration;
+    public float sideAcceleration;
+    public float deceleration;
+
+    private float currentForwardSpeed = 0f;
+    private float currentBackwardSpeed = 0f;
+    private float currentRightSpeed = 0f;
+    private float currentLeftSpeed = 0f;
 
     private bool moveForward;
     private bool moveBackward;
@@ -20,6 +31,7 @@ public class DroneMechanics : MonoBehaviour
     private bool rotateRight;
     private bool rotateLeft;
 
+    public Transform cameraTransform;
 
     private void Start()
     {
@@ -30,6 +42,28 @@ public class DroneMechanics : MonoBehaviour
     {
         checkClick();
         move();
+        cameraMovement();
+    }
+
+    private void cameraMovement()
+    {
+        float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X");
+
+        float verticalRotation = cameraTransform.localEulerAngles.x - mouseY * verticalCameraSensitivity * Time.deltaTime;
+
+        float horizontalRotation = transform.localEulerAngles.y + mouseX * horizontalCameraSensitivity * Time.deltaTime;
+
+        // Adjust for Unity's 0-360 degree rotation system
+        if (verticalRotation > 180) verticalRotation -= 360;
+
+        // Clamp the rotation between -25 and 25 degrees
+        verticalRotation = Mathf.Clamp(verticalRotation, -25f, 35f);
+
+        // Apply the clamped rotation
+        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, cameraTransform.localEulerAngles.z);
+
+        transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, horizontalRotation, transform.localEulerAngles.z);
     }
 
     private void checkClick()
@@ -138,30 +172,75 @@ public class DroneMechanics : MonoBehaviour
             transform.Translate(Vector3.up * upSpeed * Time.deltaTime);
         }
 
-        if(moveDown)
+        if (moveDown)
         {
             transform.Translate(Vector3.down * downSpeed * Time.deltaTime);
         }
 
+        // Forward movement with acceleration and deceleration
         if (moveForward)
         {
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            currentForwardSpeed += forwardAcceleration * Time.deltaTime;
+            currentForwardSpeed = Mathf.Min(currentForwardSpeed, moveSpeed); // Clamp to max speed
         }
+        else
+        {
+            currentForwardSpeed -= deceleration * Time.deltaTime;
+            currentForwardSpeed = Mathf.Max(currentForwardSpeed, 0f); // Clamp to 0
+        }
+        if (currentForwardSpeed > 0f)
+        {
+            transform.Translate(Vector3.forward * currentForwardSpeed * Time.deltaTime);
+        }
+
+        // Backward movement with acceleration and deceleration
         if (moveBackward)
         {
-            transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+            currentBackwardSpeed += forwardAcceleration * Time.deltaTime; // Use the same acceleration variable
+            currentBackwardSpeed = Mathf.Min(currentBackwardSpeed, moveSpeed);
+        }
+        else
+        {
+            currentBackwardSpeed -= deceleration * Time.deltaTime;
+            currentBackwardSpeed = Mathf.Max(currentBackwardSpeed, 0f);
+        }
+        if (currentBackwardSpeed > 0f)
+        {
+            transform.Translate(Vector3.back * currentBackwardSpeed * Time.deltaTime);
         }
 
+        // Right movement with acceleration and deceleration
         if (moveRight)
         {
-            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+            currentRightSpeed += sideAcceleration * Time.deltaTime;
+            currentRightSpeed = Mathf.Min(currentRightSpeed, moveSpeed); // Clamp to max speed
         }
+        else
+        {
+            currentRightSpeed -= deceleration * Time.deltaTime;
+            currentRightSpeed = Mathf.Max(currentRightSpeed, 0f);
+        }
+        if (currentRightSpeed > 0f)
+        {
+            transform.Translate(Vector3.right * currentRightSpeed * Time.deltaTime);
+        }
+
+        // Left movement with acceleration and deceleration
         if (moveLeft)
         {
-            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            currentLeftSpeed += sideAcceleration * Time.deltaTime;
+            currentLeftSpeed = Mathf.Min(currentLeftSpeed, moveSpeed); // Clamp to max speed
         }
-
-
+        else
+        {
+            currentLeftSpeed -= deceleration * Time.deltaTime;
+            currentLeftSpeed = Mathf.Max(currentLeftSpeed, 0f);
+        }
+        if (currentLeftSpeed > 0f)
+        {
+            transform.Translate(Vector3.left * currentLeftSpeed * Time.deltaTime);
+        }
+        
         if (rotateRight)
         {
             transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
