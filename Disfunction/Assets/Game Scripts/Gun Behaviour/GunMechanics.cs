@@ -105,7 +105,7 @@ public class GunMechanics : MonoBehaviour
 
         if (Input.GetMouseButton(0) && canShoot && bulletsInMag > 0)
         {
-            returnspeed = 1.0f;
+            returnspeed = 6.0f;
         }
         else
         {
@@ -159,7 +159,7 @@ public class GunMechanics : MonoBehaviour
             }
         }
 
-        targetRotation = Vector3.Lerp(targetRotation, new Vector3(mouseY * gunVerticalSway , mouseX * gunHorizontalSway, 0), Time.fixedDeltaTime * returnspeed);
+        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0, 0, 0), Time.fixedDeltaTime * returnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
         
