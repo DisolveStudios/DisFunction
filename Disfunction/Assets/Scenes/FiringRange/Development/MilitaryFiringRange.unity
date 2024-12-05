@@ -5697,32 +5697,32 @@ PrefabInstance:
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.59
+      value: -16.23
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.383
+      value: 2.64
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.34
+      value: -3.4
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.62155783
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.78336835
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
@@ -5737,7 +5737,7 @@ PrefabInstance:
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -256.86
       objectReference: {fileID: 0}
     - target: {fileID: 1890461871452054289, guid: 624d18fd1205c44fabdcdcd46d8d4913,
         type: 3}
@@ -5748,11 +5748,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Default Player (Camera Attached)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410111759163073573, guid: 624d18fd1205c44fabdcdcd46d8d4913,
-        type: 3}
-      propertyPath: recoilY
-      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
