@@ -2,20 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-
 public class DroneMechanics : MonoBehaviour
 {
 
-    public float moveSpeed;
+    [Header("Adjust Speed")]
+    public float topSpeed;
     public float upSpeed;
     public float downSpeed;
-    public float rotationSpeed;
+
+    [Header("Adjust Sensitivity")]
     public float verticalCameraSensitivity;
     public float horizontalCameraSensitivity;
+
+    [Header("Adjust Acceleration and Deceleration")]
     public float forwardAcceleration;
     public float sideAcceleration;
     public float deceleration;
+
+    public Transform cameraTransform;
 
     private float currentForwardSpeed = 0f;
     private float currentBackwardSpeed = 0f;
@@ -28,24 +32,25 @@ public class DroneMechanics : MonoBehaviour
     private bool moveDown;
     private bool moveLeft;
     private bool moveRight;
-    private bool rotateRight;
-    private bool rotateLeft;
-
-    public Transform cameraTransform;
 
     private void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
     {
         checkClick();
-        move();
-        cameraMovement();
+        mouseMovement();
+
+        // Handle movments
+        upwardDownwardMovement();
+        forwardBackwardMovement();
+        sidewaysMovement();
     }
 
-    private void cameraMovement()
+    private void mouseMovement()
     {
         float mouseY = Input.GetAxis("Mouse Y");
         float mouseX = Input.GetAxis("Mouse X");
@@ -58,130 +63,44 @@ public class DroneMechanics : MonoBehaviour
         if (verticalRotation > 180) verticalRotation -= 360;
 
         // Clamp the rotation between -25 and 25 degrees
-        verticalRotation = Mathf.Clamp(verticalRotation, -25f, 35f);
+        verticalRotation = Mathf.Clamp(verticalRotation, -4f, 35f);
 
         // Apply the clamped rotation
-        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, cameraTransform.localEulerAngles.z);
+        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, cameraTransform.localEulerAngles.y, cameraTransform.localEulerAngles.z);
 
         transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, horizontalRotation, transform.localEulerAngles.z);
     }
 
     private void checkClick()
     {
+        // Handle Forward and Backward Movement
+        if (Input.GetKeyDown(KeyCode.W)) { moveForward = true; }
+        if (Input.GetKeyUp(KeyCode.W)) { moveForward = false; }
+        if (Input.GetKeyDown(KeyCode.S)) { moveBackward = true; }
+        if (Input.GetKeyUp(KeyCode.S)) { moveBackward = false; }
 
-        // *** Moving Forward 
+        // Handle Vertical Movement
+        if (Input.GetKeyDown(KeyCode.Space)) { moveUp = true; }
+        if (Input.GetKeyUp(KeyCode.Space)) { moveUp = false; }
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { moveDown = true; }
+        if (Input.GetKeyUp(KeyCode.LeftShift)) { moveDown = false; }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            moveForward = true;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            moveForward = false;
-        }
-
-
-        // *** Moving Backward 
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            moveBackward = true;
-        }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            moveBackward = false;
-        }
-
-
-        // Moving the drone Upwards
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            moveUp = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            moveUp = false;
-        }
-
-        // Moving the drone Downwards
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            moveDown = true;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            moveDown = false;
-        }
-
-
-        //  ***  Moving drone towards Right
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            moveRight = true;
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            moveRight = false;
-        }
-
-
-        //  ***  Moving drone towards Left
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            moveLeft = true;
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            moveLeft = false;
-        }
-
-
-        //  ***  Rotating drone towards Right
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            rotateRight = true;
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            rotateRight = false;
-        }
-
-
-        //  ***  Rotating drone towards Left
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            rotateLeft = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            rotateLeft = false;
-        }
-
+        // Handle Horizontal Movement
+        if (Input.GetKeyDown(KeyCode.D)) { moveRight = true; }
+        if (Input.GetKeyUp(KeyCode.D)) { moveRight = false; }
+        if (Input.GetKeyDown(KeyCode.A)) { moveLeft = true; }
+        if (Input.GetKeyUp(KeyCode.A)) { moveLeft = false; }
     }
 
-    private void move()
+    private void forwardBackwardMovement() 
     {
-        if (moveUp)
-        {
-            transform.Translate(Vector3.up * upSpeed * Time.deltaTime);
-        }
-
-        if (moveDown)
-        {
-            transform.Translate(Vector3.down * downSpeed * Time.deltaTime);
-        }
 
         // Forward movement with acceleration and deceleration
+
         if (moveForward)
         {
             currentForwardSpeed += forwardAcceleration * Time.deltaTime;
-            currentForwardSpeed = Mathf.Min(currentForwardSpeed, moveSpeed); // Clamp to max speed
+            currentForwardSpeed = Mathf.Min(currentForwardSpeed, topSpeed); // Clamp to max speed
         }
         else
         {
@@ -197,7 +116,7 @@ public class DroneMechanics : MonoBehaviour
         if (moveBackward)
         {
             currentBackwardSpeed += forwardAcceleration * Time.deltaTime; // Use the same acceleration variable
-            currentBackwardSpeed = Mathf.Min(currentBackwardSpeed, moveSpeed);
+            currentBackwardSpeed = Mathf.Min(currentBackwardSpeed, topSpeed);
         }
         else
         {
@@ -208,12 +127,14 @@ public class DroneMechanics : MonoBehaviour
         {
             transform.Translate(Vector3.back * currentBackwardSpeed * Time.deltaTime);
         }
-
+    }
+    private void sidewaysMovement() 
+    {
         // Right movement with acceleration and deceleration
         if (moveRight)
         {
             currentRightSpeed += sideAcceleration * Time.deltaTime;
-            currentRightSpeed = Mathf.Min(currentRightSpeed, moveSpeed); // Clamp to max speed
+            currentRightSpeed = Mathf.Min(currentRightSpeed, topSpeed); // Clamp to max speed
         }
         else
         {
@@ -229,7 +150,7 @@ public class DroneMechanics : MonoBehaviour
         if (moveLeft)
         {
             currentLeftSpeed += sideAcceleration * Time.deltaTime;
-            currentLeftSpeed = Mathf.Min(currentLeftSpeed, moveSpeed); // Clamp to max speed
+            currentLeftSpeed = Mathf.Min(currentLeftSpeed, topSpeed); // Clamp to max speed
         }
         else
         {
@@ -240,17 +161,20 @@ public class DroneMechanics : MonoBehaviour
         {
             transform.Translate(Vector3.left * currentLeftSpeed * Time.deltaTime);
         }
-        
-        if (rotateRight)
-        {
-            transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-        }
-
-        if (rotateLeft)
-        {
-            transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
-        }
-
     }
+
+    private void upwardDownwardMovement() 
+    {
+        if (moveUp)
+        {
+            transform.Translate(Vector3.up * upSpeed * Time.deltaTime);
+        }
+
+        if (moveDown)
+        {
+            transform.Translate(Vector3.down * downSpeed * Time.deltaTime);
+        }
+    }
+
 
 }
