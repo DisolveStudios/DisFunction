@@ -52,7 +52,7 @@ MonoBehaviour:
   movementSpeed: 3.5
   spawnRadius: 0.5
   spawnRangeX: 17
-  spawnHeight: 1.1
+  spawnHeight: 1
   spawnRangeZ: 10
   moveDummies: 0
   spawnType: 0
