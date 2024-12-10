@@ -1,0 +1,11 @@
+
+
+Bug : NIL
+
+test : Check if drone is able to move ( Upward, Downward, Forward, Backward) and rotate left and right.
+
+
+required result : test shouldn't give any errors.
+
+
+Process: Run the droneTesting scene and check for the above mentioned.
