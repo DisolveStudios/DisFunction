@@ -149,13 +149,13 @@ public class GunMechanics : MonoBehaviour
             Debug.DrawRay(gunMouth.transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             GameObject obj = Instantiate(debugBall, hit.point, Quaternion.identity);
             obj.transform.SetParent(hit.transform, true);
-            ImpactBearer impactBearer = hit.transform.GetComponent<ImpactBearer>();
+            Impact impactBearer = hit.transform.GetComponent<Impact>();
 
             if (impactBearer != null)
             {
                 float distanceBetweenGunAndObject = Geometry.GetDistance(gunMouth.transform.position, hit.point);
 
-                impactBearer.parent.damage(getDamageByDistance(damage, distanceBetweenGunAndObject), impactBearer.impact);
+                impactBearer.parent.damage(getDamageByDistance(damage, distanceBetweenGunAndObject), impactBearer.dummyImpact);
             }
         }
 
