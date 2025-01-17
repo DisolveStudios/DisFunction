@@ -1,23 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class stickBombMechanics : MonoBehaviour
 {
-    private Impact impact;
     public GameObject bomb;
-    public float closeRange;
-    public float midRange;
-    public float farRange;
+
+    public Distance extremeClose;
+    public Distance close;
+    public Distance mildlyClose;
 
     public float colliderExpansionSpeed;
     public float maxColliderSize;
-    
+
+    public float DamagePowerForExtremeCloseRange;
+    public float DamagePowerForCloseRange;
+    public float DamagePowerForMildlyCloseRange;
+
+    public Dummy dummy;
+
+    public SphereCollider sphereCollider;
+
     private RaycastHit hit;
     private Boolean isTriggered = false;
-    public SphereCollider sphereCollider;
 
     public void triggerStickBomb()
     {
@@ -43,20 +49,46 @@ public class stickBombMechanics : MonoBehaviour
     {
         Vector3 direction = (collision.transform.position - bomb.transform.position).normalized;
 
-        // Perform a raycast
+        Unwrap distance = new Unwrap(6, 0);
+        distance.extremeClose = 1.25f;
+        distance.close = 2f;
+        distance.mildlyClose = 4f;
+
         if (Physics.Raycast(bomb.transform.position, direction, out hit, Mathf.Infinity))
         {
-            Debug.Log("Ray hit: " + hit.collider.name);
+            ImpactBearer impactBearer = hit.transform.GetComponent<ImpactBearer>();
+
+            if (impactBearer != null)
+            {
+                float impactDistance = Geometry.GetDistance(transform.position, hit.transform.position);
+
+                float damage = 0;
+                if (impactDistance <= distance.distance(extremeClose))
+                {
+                    damage = DamagePowerForExtremeCloseRange;
+                }
+                else if (impactDistance > distance.distance(extremeClose) && impactDistance <= distance.distance(close))
+                {
+                    damage = DamagePowerForCloseRange;
+                }
+                else if (impactDistance > distance.distance(close) && impactDistance <= distance.distance(mildlyClose))
+                {
+                    damage = DamagePowerForMildlyCloseRange;
+                }
+
+                impactBearer.parent.damage(damage, impactBearer.impact);
+
+            }
         }
-        else
-        {
-            Debug.Log("Ray did not hit any object.");
-        }
+    }
+
+    private void Start()
+    {
+        triggerStickBomb();
     }
 
     void Update()
     {
-        triggerStickBomb();
         explode();
     }
 }

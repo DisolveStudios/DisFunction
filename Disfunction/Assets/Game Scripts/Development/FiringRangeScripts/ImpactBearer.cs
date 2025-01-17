@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Impact : MonoBehaviour
+public class ImpactBearer : MonoBehaviour
 {
-    public DummyImpact dummyImpact;
+    public Impact impact;
 
     // Parent of the object.
     public Dummy parent;

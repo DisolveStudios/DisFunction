@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DummyImpact
+public enum Impact
 {
     Head,
     Body,
@@ -60,19 +60,19 @@ public class Dummy : MonoBehaviour
 
     }
 
-    public void damage(float takeDamage, DummyImpact impact)
+    public void damage(float takeDamage, Impact impact)
     {
         switch (impact)
         {
-            case DummyImpact.Head:
+            case Impact.Head:
                 health -= takeDamage * 1/1;
                 break;
 
-            case DummyImpact.Body:
+            case Impact.Body:
                 health -= takeDamage * bodyDamageRatio;
                 break;
 
-            case DummyImpact.Foot:
+            case Impact.Foot:
                 health -= takeDamage * footDamageRatio;
                 break;
         }
