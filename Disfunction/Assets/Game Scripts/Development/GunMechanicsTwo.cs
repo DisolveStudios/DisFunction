@@ -81,7 +81,7 @@ public class GunMechanicsTwo : MonoBehaviour
         transform.localPosition -= Vector3.forward * 0.1f;
 
         int currStep =  clipSize + 1 - ammoInClip;
-        currStep = Mathf.Clamp(currStep ,0, recoilPattern.Length - 1);
+        currStep = GameMath.clamp(currStep ,0, recoilPattern.Length - 1);
 
         currentMouseRotation += recoilPattern[currStep];
     }
