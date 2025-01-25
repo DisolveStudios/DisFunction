@@ -35,8 +35,8 @@ public class GunMechanics : MonoBehaviour
 
     [Header("Gun Damage and Impact Variables")]
     public float damage = 10.0f;
-    public float closeRange;
-    public float midRange;
+    public Distance closeRange = Distance.CLOSE;
+    public Distance midRange = Distance.NEUTRAL;
     public float ImpactWithinCloseRange;
     public float ImpactWithinMidRange;
     public float ImpactWithinFarRange;
@@ -71,6 +71,7 @@ public class GunMechanics : MonoBehaviour
     private int frameRate;
 
     private GunViewAnimationTrigger gunViewAnimation;
+    private Unwrap distanceUnwrap = new Unwrap(1.0f, 12.5f);
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -117,11 +118,6 @@ public class GunMechanics : MonoBehaviour
     void FixedUpdate()
     {
         mouseY = Input.GetAxis("Mouse Y");
-
-        if(minimizeFPSError) {
-            getFrameRates();
-            controlGunMechanicsByFrameRate();
-        }
 
         if(Input.GetMouseButton(0) && canShoot && bulletsInMag > 0) {
            if(Time.time - latestTime > fireRate) {
@@ -172,14 +168,16 @@ public class GunMechanics : MonoBehaviour
         // targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
         canShoot = true;
+
+        Debug.Log(distanceUnwrap.distnace(this.closeRange) + " : " + distanceUnwrap.distnace(this.midRange));
     }
 
     private float getDamageByDistance(float damage, float distance)
     {
-        if (distance < closeRange)
+        if (distance < distanceUnwrap.distnace(this.closeRange))
             return damage - ImpactWithinCloseRange;
 
-        else if (distance >= closeRange && distance < midRange)
+        else if (distance >= distanceUnwrap.distnace(this.closeRange) && distance < distanceUnwrap.distnace(this.midRange))
             return damage - ImpactWithinMidRange;
 
         else
@@ -244,22 +242,22 @@ public class GunMechanics : MonoBehaviour
         }
     }
 
-    private void controlGunMechanicsByFrameRate() {        
-        currentFPSOffset = frameRate - baseFPS;
-        currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
-        Debug.Log("frameRate: " + frameRate);
-        float requiredFireRate = currentFPSOffset * 0.000100f;
-        //float requiredReturnspeed = currentFPSOffset * 0.150f;
+    //private void controlGunMechanicsByFrameRate() {        
+    //    currentFPSOffset = frameRate - baseFPS;
+    //    currentFPSOffset = Mathf.Clamp(currentFPSOffset, 0 , Int32.MaxValue);
+    //    Debug.Log("frameRate: " + frameRate);
+    //    float requiredFireRate = currentFPSOffset * 0.000100f;
+    //    //float requiredReturnspeed = currentFPSOffset * 0.150f;
 
-        fireRate = initialCoolDownTime + requiredFireRate;
-        //returnspeed = initialReturnspeed - requiredReturnspeed;
-        //returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
-    }
-
-    private void getFrameRates() {
-        frameRate = ApplicationFrameRate.GetCurrentFrameRate(0.1f);
-    }
-
+    //    fireRate = initialCoolDownTime + requiredFireRate;
+    //    //returnspeed = initialReturnspeed - requiredReturnspeed;
+    //    //returnspeed = Mathf.Clamp(returnspeed, 2.0f , Int32.MaxValue);
+    //}
+    //
+    //private void getFrameRates() {
+    //    frameRate = ApplicationFrameRate.GetCurrentFrameRate(0.1f);
+    //}
+    //
     //private void controlRecoilByFrameRateDepndent()
     //{
     //    if(frameRate >= 30 && frameRate < 60) 9 || 37 - 50 = 6.5 || 53 - 65 = 5.2 || 70 - 83 = 4.2 || 81 = 3.8{
