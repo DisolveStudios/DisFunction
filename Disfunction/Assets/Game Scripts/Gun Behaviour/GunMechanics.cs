@@ -169,15 +169,15 @@ public class GunMechanics : MonoBehaviour
         bulletsInMag--;
         canShoot = true;
 
-        Debug.Log(distanceUnwrap.distnace(this.closeRange) + " : " + distanceUnwrap.distnace(this.midRange));
+        Debug.Log(distanceUnwrap.distance(this.closeRange) + " : " + distanceUnwrap.distance(this.midRange));
     }
 
     private float getDamageByDistance(float damage, float distance)
     {
-        if (distance < distanceUnwrap.distnace(this.closeRange))
+        if (distance < distanceUnwrap.distance(this.closeRange))
             return damage - ImpactWithinCloseRange;
 
-        else if (distance >= distanceUnwrap.distnace(this.closeRange) && distance < distanceUnwrap.distnace(this.midRange))
+        else if (distance >= distanceUnwrap.distance(this.closeRange) && distance < distanceUnwrap.distance(this.midRange))
             return damage - ImpactWithinMidRange;
 
         else

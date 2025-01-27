@@ -64,7 +64,7 @@ public class Unwrap
         this.extremeFar *= threshold;
     }
 
-    public float distnace(Distance distance)
+    public float distance(Distance distance)
     {
         switch (distance) {
             case Distance.EXTREME_CLOSE:
