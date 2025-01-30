@@ -7,7 +7,6 @@ TagManager:
   - leg
   - head
   - chest
-  - dummy
   layers:
   - Default
   - TransparentFX
