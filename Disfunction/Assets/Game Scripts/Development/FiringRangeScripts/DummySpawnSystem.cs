@@ -49,7 +49,7 @@ public class DummySpawnSystem : MonoBehaviour
 
                 Debug.Log(spawnPosition.x + " and " + spawnPosition.z);
 
-                dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
+                dummy = Instantiate(obj, spawnPosition, obj.transform.rotation);
 
                 this.health = health;
 
@@ -72,7 +72,7 @@ public class DummySpawnSystem : MonoBehaviour
     public void spawnSingleDummy(float health, float movementDistance)
     {
         Vector3 spawnPosition = spawnChecker.getRandomPosition(transform.position, spawnRangeX, spawnHeight, spawnRangeZ);
-        dummy = Instantiate(obj, spawnPosition, Quaternion.identity);
+        dummy = Instantiate(obj, spawnPosition, obj.transform.rotation);
         this.health = health;
         Dummy dummyScript = dummy.GetComponent<Dummy>();
         if (!moveDummies)
