@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GunMechanics : MonoBehaviour
 {
-     [Header("Gun Vector Position")]
+    [Header("Gun Vector Position")]
     public Vector3 targetRotation;
     public Vector3 currentRotation;
     public Vector3 initialPosition;
@@ -57,6 +57,9 @@ public class GunMechanics : MonoBehaviour
     public GameObject gunMouth;
     public GameObject debugBall;
 
+    [Header("Damage Statistics")]
+    public DummySpawnSystem spawnSystem;
+
     private Vector3 camRot;
     private Vector3 camCurr;
     private Vector3 prevPos;
@@ -77,7 +80,7 @@ public class GunMechanics : MonoBehaviour
     private int frameRate;
 
     private GunViewAnimationTrigger gunViewAnimation;
-    private Unwrap distanceUnwrap = new Unwrap(1.0f, 12.5f);
+    private Unwrap distanceUnwrap = new Unwrap(1.0f, 4.2f);
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -99,6 +102,10 @@ public class GunMechanics : MonoBehaviour
 
     private void Update()
     {
+
+        //Debug.Log(distanceUnwrap.distance(this.closeRange));
+        //Debug.Log(distanceUnwrap.distance(this.midRange));
+
         DetermineAim();
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -186,8 +193,31 @@ public class GunMechanics : MonoBehaviour
             if (impactBearer != null)
             {
                 float distanceBetweenGunAndObject = Geometry.GetDistance(gunMouth.transform.position, hit.point);
+                Dummy parent = impactBearer.parent;
 
-                impactBearer.parent.damage(getDamageByDistance(damage, distanceBetweenGunAndObject), impactBearer.impact);
+                if(parent != null)
+                {
+                    parent.damage(getDamageByDistance(damage, distanceBetweenGunAndObject), impactBearer.impact);
+                }
+
+                // To Calculate damage stats, can be erased again.
+                switch (impactBearer.impact)
+                {
+                    case Impact.Head:
+                        spawnSystem.damageStatistics.isHeadShot();
+                        break;
+
+                    case Impact.Body:
+                        spawnSystem.damageStatistics.isBodyShot();
+                        break;
+
+                    case Impact.Foot:
+                        spawnSystem.damageStatistics.isFootShot();
+                        break;
+                    case Impact.InAccuracy:
+                        spawnSystem.damageStatistics.hitNone();
+                        break;
+                }
             }
         }
 
@@ -200,20 +230,21 @@ public class GunMechanics : MonoBehaviour
         // targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
         canShoot = true;
-
-        Debug.Log(distanceUnwrap.distance(this.closeRange) + " : " + distanceUnwrap.distance(this.midRange));
     }
 
     private float getDamageByDistance(float damage, float distance)
     {
         if (distance < distanceUnwrap.distance(this.closeRange))
+        {
             return damage - ImpactWithinCloseRange;
 
-        else if (distance >= distanceUnwrap.distance(this.closeRange) && distance < distanceUnwrap.distance(this.midRange))
+        }
+        else if (distance >= distanceUnwrap.distance(this.closeRange) && distance < distanceUnwrap.distance(this.midRange)) {
             return damage - ImpactWithinMidRange;
 
-        else
+        } else {
             return damage - ImpactWithinFarRange;
+        }
     }
 
     void DetermineAim() {
