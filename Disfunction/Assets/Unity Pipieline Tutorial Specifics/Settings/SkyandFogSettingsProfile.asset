@@ -322,7 +322,7 @@ MonoBehaviour:
     m_Value: 2.5
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 84.3
+    m_Value: 47.4
   meanFreePath:
     m_OverrideState: 1
     m_Value: 129.49
@@ -629,17 +629,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   quality:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   threshold:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.44
   intensity:
-    m_OverrideState: 0
-    m_Value: 0.325
+    m_OverrideState: 1
+    m_Value: 0.197
   scatter:
-    m_OverrideState: 0
-    m_Value: 0.682
+    m_OverrideState: 1
+    m_Value: 0.472
   tint:
     m_OverrideState: 0
     m_Value: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
@@ -653,13 +653,13 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 4
   m_HighQualityPrefiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   m_HighQualityFiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
 --- !u!114 &7642060734654139733
 MonoBehaviour:
@@ -839,7 +839,7 @@ MonoBehaviour:
     m_Value: 1
   distanceScaleFactor:
     m_OverrideState: 1
-    m_Value: 0.481
+    m_Value: 0.166
   maxDistance:
     m_OverrideState: 0
     m_Value: 50

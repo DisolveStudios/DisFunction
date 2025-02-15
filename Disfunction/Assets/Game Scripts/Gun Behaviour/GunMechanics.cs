@@ -35,6 +35,8 @@ public class GunMechanics : MonoBehaviour
     public float gunHorizontalSway = 1.0f;
     public float gunVerticalSway = 1.0f;
 
+    public int bulletsInMag = 40;
+
     [Header("Gun Damage and Impact Variables")]
     public float damage = 10.0f;
     public Distance closeRange = Distance.CLOSE;
@@ -43,7 +45,10 @@ public class GunMechanics : MonoBehaviour
     public float ImpactWithinMidRange;
     public float ImpactWithinFarRange;
 
-    public int bulletsInMag = 40;
+    [Header("Fps Camera Attributes")]
+    public Quaternion peekDegree;
+
+    
 
     [Header("Gun Conditions")]
     public bool isSingleClick;
@@ -95,7 +100,6 @@ public class GunMechanics : MonoBehaviour
 
         initialBulletsInMag = bulletsInMag;
         initialCoolDownTime = fireRate;
-        initialReturnspeed = returnspeed;
 
         gunViewAnimation = gunModelPrefab.GetComponent<GunViewAnimationTrigger>();
     }
@@ -114,7 +118,7 @@ public class GunMechanics : MonoBehaviour
 
         if (Input.GetMouseButton(0) && canShoot && bulletsInMag > 0)
         {
-            returnspeed = 6.0f;
+            returnspeed = initialReturnspeed;
         }
         else
         {
@@ -177,7 +181,7 @@ public class GunMechanics : MonoBehaviour
         transform.localPosition = targetMovement;
 
         camSen += new Vector3(-mouseY * sensitivity, 0, 0);
-        camRecoil = camSen + targetRotation;
+        camRecoil = camSen + targetRotation + peekDegree.eulerAngles;
 
         transform.parent.localRotation = Quaternion.Euler(camRecoil);
     }
@@ -227,7 +231,7 @@ public class GunMechanics : MonoBehaviour
 
         Vector3 kickBack = new Vector3(0f, 0, -kickBackPower);
         targetMovement += kickBack  * Time.fixedDeltaTime;
-        // targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
+         //targetMovement.z = Mathf.Clamp(targetMovement.z,kickBackPower , 0.7f);
         bulletsInMag--;
         canShoot = true;
     }
