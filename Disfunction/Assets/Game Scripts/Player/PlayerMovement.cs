@@ -15,10 +15,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-             float MoveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime ;
-            float MoveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float MoveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime ;
+        float MoveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
-            Vector3 Movement = new Vector3(MoveX, 0, MoveZ);
-            Player.Move(transform.rotation * Movement);
+        Vector3 Movement = new Vector3(MoveX, 0, MoveZ);
+        Quaternion rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        Player.Move(rotation * Movement);
     }
 }

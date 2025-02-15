@@ -20,21 +20,7 @@ public class PlayerPeekHold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E))
-        {
-            peek = -degrees;
-        }
-        else if (Input.GetKey(KeyCode.Q))
-        {
-            peek = degrees;
-        }
-        else
-        {
-            peek = 0;
-        }
-
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.z, peek, ref r, 0.1f);
-
-        fpsCam.peekDegree = Quaternion.Euler(0,0,angle);
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.z, degrees, ref r, 0.1f);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
