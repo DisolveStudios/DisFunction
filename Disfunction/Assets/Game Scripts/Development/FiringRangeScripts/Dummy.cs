@@ -6,7 +6,8 @@ public enum Impact
 {
     Head,
     Body,
-    Foot
+    Foot,
+    InAccuracy
 }
 
 public class Dummy : MonoBehaviour
