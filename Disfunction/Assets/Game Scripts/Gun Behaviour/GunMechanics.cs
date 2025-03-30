@@ -47,8 +47,7 @@ public class GunMechanics : MonoBehaviour
 
     [Header("Fps Camera Attributes")]
     public Quaternion peekDegree;
-
-    
+    public float camShake;
 
     [Header("Gun Conditions")]
     public bool isSingleClick;
@@ -118,11 +117,11 @@ public class GunMechanics : MonoBehaviour
 
         if (Input.GetMouseButton(0) && canShoot && bulletsInMag > 0)
         {
-            returnspeed = initialReturnspeed;
+            initialReturnspeed = returnspeed;
         }
         else
         {
-            returnspeed = 9.0f;
+            initialReturnspeed = 9.0f;
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -168,12 +167,11 @@ public class GunMechanics : MonoBehaviour
                 }
                 latestTime = Time.time;
                 canShoot = false;
-                returnspeed = initialReturnspeed;
                 Shoot();
             }
         }
 
-        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0, 0, 0), Time.fixedDeltaTime * returnspeed);
+        targetRotation = Vector3.Lerp(targetRotation, new Vector3(0, 0, 0), Time.fixedDeltaTime * initialReturnspeed);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snapiness * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
         
@@ -181,7 +179,7 @@ public class GunMechanics : MonoBehaviour
         transform.localPosition = targetMovement;
 
         camSen += new Vector3(-mouseY * sensitivity, 0, 0);
-        camRecoil = camSen + targetRotation + peekDegree.eulerAngles;
+        camRecoil = camSen + (targetRotation * camShake) + peekDegree.eulerAngles;
 
         transform.parent.localRotation = Quaternion.Euler(camRecoil);
     }
