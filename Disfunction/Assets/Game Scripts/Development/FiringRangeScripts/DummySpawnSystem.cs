@@ -31,6 +31,9 @@ public class DummySpawnSystem : MonoBehaviour
     public GameObject obj;
     public GameObject dummy;
 
+    // Added for damageStatistics.
+    public DamageStatistics damageStatistics = new DamageStatistics();
+
     private void Update()
     {
         checkIfAlive();
@@ -47,7 +50,7 @@ public class DummySpawnSystem : MonoBehaviour
             if (spawnChecker.isPositionFree(spawnPosition, spawnRadius))
             {
 
-                Debug.Log(spawnPosition.x + " and " + spawnPosition.z);
+                //Debug.Log(spawnPosition.x + " and " + spawnPosition.z);
 
                 dummy = Instantiate(obj, spawnPosition, obj.transform.rotation);
 
@@ -91,6 +94,8 @@ public class DummySpawnSystem : MonoBehaviour
     {
         if(total_dummy_count == 0)
         {
+            float[] stats = this.damageStatistics.endSession();
+            Debug.Log("Accuracy: " + stats[0] + "   "  + "Head Accuracy: " + stats[1]);
             switch (spawnType) {
                 case SpawnType.MultipleDummy:
                     spawnMultipleDummies(100f);

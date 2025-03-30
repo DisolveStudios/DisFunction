@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Lens Flare (SRP)
   m_EditorClassIdentifier: 
   elements:
-  - visible: 1
+  - visible: 0
     position: 0
     positionOffset: {x: 0, y: 0}
     angularOffset: 0
@@ -181,12 +181,12 @@ MonoBehaviour:
     translationScale: {x: 1, y: 1}
     m_LocalIntensity: 2.8
     lensFlareTexture: {fileID: 2800000, guid: f6a7d32a3cd9642b1a9a0cec8a05c26f, type: 3}
-    uniformScale: 1.09
-    sizeXY: {x: 18.99, y: 1.51}
+    uniformScale: -0.9
+    sizeXY: {x: 15.13, y: 12.9}
     allowMultipleElement: 0
     m_Count: 5
     preserveAspectRatio: 1
-    rotation: 172.87
+    rotation: 175.57
     tint: {r: 1, g: 1, b: 1, a: 0.5}
     blendMode: 0
     autoRotate: 1
@@ -337,17 +337,17 @@ MonoBehaviour:
       m_RotationOrder: 4
   - visible: 0
     position: 0.3
-    positionOffset: {x: 0, y: 0}
+    positionOffset: {x: 0.77, y: -0.72}
     angularOffset: 0
     translationScale: {x: 1, y: 1}
     m_LocalIntensity: 0.28
     lensFlareTexture: {fileID: 2800000, guid: 8a47e119b21c24dd7bd93350e16d4937, type: 3}
-    uniformScale: 1.67
-    sizeXY: {x: 1, y: 1}
+    uniformScale: 1.31
+    sizeXY: {x: 1.5, y: 1.49}
     allowMultipleElement: 0
     m_Count: 5
     preserveAspectRatio: 0
-    rotation: 138.25
+    rotation: -145.67
     tint: {r: 1, g: 1, b: 1, a: 0.5}
     blendMode: 0
     autoRotate: 1

@@ -11,6 +11,10 @@ public class ImpactBearer : MonoBehaviour
 
     private void Start()
     {
-        parent = transform.parent.gameObject.GetComponent<Dummy>();
+        Transform parent = transform.parent;
+        if(parent != null)
+        {
+            this.parent = parent.gameObject.GetComponent<Dummy>();
+        }
     }
 }
