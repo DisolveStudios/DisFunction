@@ -11535,7 +11535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 2018074537}
-  speed: 3.5
+  speed: 0
 --- !u!143 &2018074537
 CharacterController:
   m_ObjectHideFlags: 0
@@ -11574,8 +11574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba9cb170e6b446698ee07ed4b41bcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peekDegrees: 23
-  peekTime: 0.1
+  peekDegrees: 0
+  peekTime: 0
 --- !u!4 &2019902658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8ef2fdba8be2a436aae568802579a975,
